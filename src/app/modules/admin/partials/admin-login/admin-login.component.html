@@ -1,0 +1,52 @@
+<form class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto" (ngSubmit)="onSubmit()">
+  <div class="pb-2 pt-4">
+    <app-input
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+    ></app-input>
+  </div>
+  <div class="pb-2 pt-4">
+    <!-- <app-input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+    ></app-input> -->
+    <app-input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+    ></app-input>
+  </div>
+  <!-- <div class="flex justify-between"> -->
+  <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
+    <a (click)="goToRegister()">Register with us</a>
+  </div>
+  <!-- <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
+      <a (click)="goToForgotPassword()">Forgot your password?</a>
+    </div> -->
+  <!-- </div> -->
+  <div *ngIf="loading; else elseBlock" class="pb-2 pt-4">
+    <div class="flex items-center justify-center space-x-2">
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="pb-2 pt-4">
+      <button
+        type="submit"
+        class="uppercase block w-full p-4 text-lg bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
+      >
+        Login
+      </button>
+    </div>
+  </ng-template>
+</form>
