@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HotToastModule } from '@ngneat/hot-toast';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Routing and app import
@@ -23,7 +22,6 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HotToastModule.forRoot(),
     FormsModule,
     HttpClientModule,
     AdminModule,

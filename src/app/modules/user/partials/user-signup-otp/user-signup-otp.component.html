@@ -1,0 +1,18 @@
+<form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+  <div class="pb-2 pt-4">
+    <app-input
+      type="text"
+      name="signupOTP"
+      id="signupOTP"
+      placeholder="Enter OTP Sent to E-mail"
+    ></app-input>
+  </div>
+  <div class="pb-2 pt-4 mt-4">
+    <button
+      (click)="ContinueFromOTP()"
+      class="uppercase block w-full p-4 text-lg bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
+    >
+      Verify OTP
+    </button>
+  </div>
+</form>

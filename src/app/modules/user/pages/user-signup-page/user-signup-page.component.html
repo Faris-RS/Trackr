@@ -1,1 +1,40 @@
-<p>user-signup-page works!</p>
+<body>
+  <section class="min-h-screen flex items-stretch text-white">
+    <div class="w-1/2">
+      <app-background></app-background>
+    </div>
+
+    <div
+      class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
+      style="background-color: #161616"
+    >
+      <div
+        class="absolute lg:hidden -z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover items-center"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1614849963640-9cc74b2a826f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80);
+        "
+      >
+        <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
+      </div>
+
+      <div class="w-full">
+        <div class="w-full py-6 z-20">
+          <h1 class="my-6 text-3xl font-thin">Join LibeStorary</h1>
+          <div *ngIf="!isOTP; else elseBlock">
+            <div
+              class="text-center text-gray-400 hover:underline hover:text-gray-100"
+            >
+              <a href="/login">Already have an account?</a>
+            </div>
+            <div>
+              <app-user-signup (signupOTP)="proceedToOTP()"></app-user-signup>
+            </div>
+          </div>
+          <ng-template #elseBlock>
+            <app-user-signup-otp></app-user-signup-otp>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

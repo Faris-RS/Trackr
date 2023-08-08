@@ -8,6 +8,8 @@ import { UserLoginComponent } from './partials/user-login/user-login.component';
 import { UserSignupComponent } from './partials/user-signup/user-signup.component';
 import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.component';
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UserSignupOtpComponent } from './partials/user-signup-otp/user-signup-otp.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-pa
     UserSignupComponent,
     UserLoginPageComponent,
     UserSignupPageComponent,
+    UserSignupOtpComponent,
   ],
-  imports: [CommonModule, FormsModule, UserRoutingModule],
+  imports: [CommonModule, FormsModule, UserRoutingModule, SharedModule],
 })
 export class UserModule {}
