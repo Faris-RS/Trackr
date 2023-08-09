@@ -9,6 +9,7 @@ import { AdminLoginComponent } from './partials/admin-login/admin-login.componen
 import { AdminSignupComponent } from './partials/admin-signup/admin-signup.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AdminLoginComponent,
     AdminSignupComponent,
     AdminLoginPageComponent,
+    AdminHomePageComponent,
   ],
   imports: [CommonModule, FormsModule, AdminRoutingModule, SharedModule],
 })

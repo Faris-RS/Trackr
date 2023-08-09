@@ -1,18 +1,31 @@
-<form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+<form (ngSubmit)="onSubmit()" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
   <div class="pb-2 pt-4">
     <app-input
       type="text"
       name="signupOTP"
       id="signupOTP"
       placeholder="Enter OTP Sent to E-mail"
+      [(ngModel)]="otp"
     ></app-input>
   </div>
-  <div class="pb-2 pt-4 mt-4">
-    <button
-      (click)="ContinueFromOTP()"
-      class="uppercase block w-full p-4 text-lg bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
-    >
-      Verify OTP
-    </button>
+  <div *ngIf="loader; else elseBlock" class="pb-2 pt-4 mt-4">
+    <div class="flex items-center justify-center space-x-2">
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+      <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
+    </div>
   </div>
+  <ng-template #elseBlock>
+    <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
+      <a (click)="resendOTP()">Resent OTP</a>
+    </div>
+    <div class="pb-2 pt-4 mt-4">
+      <button
+        type="submit"
+        class="uppercase block w-full p-4 text-lg bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
+      >
+        Verify OTP
+      </button>
+    </div>
+  </ng-template>
 </form>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { UserAuthenticationService } from 'src/app/core/services/authentication/user-authentication/user-authentication.service';
 import { AdminLogin } from 'src/app/core/models/admin/adminModel';
+import { AdminAuthenticationService } from 'src/app/core/services/authentication/admin-authentication/admin-authentication.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -11,7 +11,7 @@ import { AdminLogin } from 'src/app/core/models/admin/adminModel';
 })
 export class AdminLoginComponent {
   constructor(
-    private service: UserAuthenticationService,
+    private service: AdminAuthenticationService,
     private toast: HotToastService,
     private router: Router
   ) {}
@@ -19,9 +19,9 @@ export class AdminLoginComponent {
   password: string = '';
   loading: boolean = false;
 
-  goToRegister(): void {
-    this.router.navigate(['/admin/register']);
-  }
+  // goToRegister(): void {
+  //   this.router.navigate(['/admin/register']);
+  // }
 
   // goToForgotPassword(): void {
   //   this.router.navigate(['/admin/forgot']);
@@ -49,15 +49,17 @@ export class AdminLoginComponent {
       this.service.doLogin(user).subscribe(
         (response) => {
           if (response.token) {
-            localStorage.setItem('userToken', response.token);
-            this.router.navigate(['/home']);
+            localStorage.setItem('adminToken', response.token);
+            this.router.navigate(['/admin/home']);
           } else {
+            this.loading = false;
             this.toast.error(response.message);
             console.error('An error occured');
           }
         },
         (error) => {
           this.toast.error(error);
+          this.loading = false;
         },
         () => {
           this.loading = false;
@@ -65,6 +67,7 @@ export class AdminLoginComponent {
       );
     } catch (error) {
       console.error(error);
+      this.loading = false;
     }
   }
 }

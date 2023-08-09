@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user.component';
 import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.component';
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
+import { UserHomePageComponent } from './pages/user-home-page/user-home-page.component';
+import { userAuthGuard } from 'src/app/core/guards/user-auth-guard/user-auth.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +19,11 @@ const routes: Routes = [
       {
         path: 'register',
         component: UserSignupPageComponent,
+      },
+      {
+        path: 'home',
+        component: UserHomePageComponent,
+        canActivate: [userAuthGuard]
       },
     ],
   },

@@ -44,7 +44,7 @@
       [(ngModel)]="confirmPassword"
     ></app-input>
   </div>
-  <div *ngIf="loading; else elseBlock" class="pb-2 pt-4 mt-4">
+  <div *ngIf="loader; else elseBlock" class="pb-2 pt-4 mt-4">
     <div class="flex items-center justify-center space-x-2">
       <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
       <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>

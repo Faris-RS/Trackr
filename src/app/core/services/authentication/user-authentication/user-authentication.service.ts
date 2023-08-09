@@ -14,13 +14,23 @@ export class UserAuthenticationService {
 
   doLogin(user: UserLogin): Observable<{ token?: string; message: string }> {
     const url = `${this.server}login`;
+    
     return this.http.post<{ token?: string; message: string }>(url, user);
   }
 
   signupOTP(
-    user: UserRegister
+    mail: string
   ): Observable<{ status: number; message: string }> {
-    const url = `${this.server}signup`;
+    const url = `${this.server}signup/sentOTP`;
+    return this.http.post<{ status: number; message: string }>(url, {email: mail});
+  }
+
+  doSignup(
+    user: UserRegister,
+    otp: string
+  ): Observable<{ status: number; message: string }> {
+    const url = `${this.server}signup/verifyOTP/${otp}`;
+    
     return this.http.post<{ status: number; message: string }>(url, user);
   }
 }

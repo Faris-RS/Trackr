@@ -50,20 +50,23 @@ export class UserLoginComponent {
         (response) => {
           if (response.token) {
             localStorage.setItem('userToken', response.token);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/user/home']);
           } else {
+            this.loading = false;
             this.toast.error(response.message);
             console.error('An error occured');
           }
         },
         (error) => {
           this.toast.error(error);
+          this.loading = false;
         },
         () => {
           this.loading = false;
         }
       );
     } catch (error) {
+      this.loading = false;
       console.error(error);
     }
   }
