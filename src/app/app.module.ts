@@ -15,6 +15,7 @@ import { UserModule } from './modules/user/user.module';
 import { InjectJwtService } from './core/interceptors/inject-jwt/inject-jwt.service';
 import { ErrorHandlingService } from './core/interceptors/error-handling/error-handling.service';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     AdminModule,
     UserModule,
     SharedModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {
