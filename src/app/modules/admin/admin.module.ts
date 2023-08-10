@@ -16,6 +16,7 @@ import { AdminHeaderComponent } from './partials/admin-header/admin-header.compo
 import { ZoomableTimeseriesComponent } from './graphs/zoomable-timeseries/zoomable-timeseries.component';
 import { BarChartComponent } from './graphs/bar-chart/bar-chart.component';
 import { LineChartComponent } from './graphs/line-chart/line-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LineChartComponent } from './graphs/line-chart/line-chart.component';
     AdminRoutingModule,
     SharedModule,
     FontAwesomeModule,
+    NgApexchartsModule,
   ],
 })
 export class AdminModule {}
