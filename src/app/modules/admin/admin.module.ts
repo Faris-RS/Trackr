@@ -15,6 +15,7 @@ import { AdminSidebarComponent } from './partials/admin-sidebar/admin-sidebar.co
 import { AdminHeaderComponent } from './partials/admin-header/admin-header.component';
 import { ZoomableTimeseriesComponent } from './graphs/zoomable-timeseries/zoomable-timeseries.component';
 import { BarChartComponent } from './graphs/bar-chart/bar-chart.component';
+import { LineChartComponent } from './graphs/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BarChartComponent } from './graphs/bar-chart/bar-chart.component';
     AdminHeaderComponent,
     ZoomableTimeseriesComponent,
     BarChartComponent,
+    LineChartComponent,
   ],
   imports: [
     CommonModule,
