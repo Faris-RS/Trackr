@@ -45,6 +45,10 @@ export class UserSignupPageComponent {
     this.ngUnsubscribe.complete();
   }
 
+  goToLogin(): void {
+    this.router.navigate(['/user/login']);
+  }
+
   proceedToOTP(): void {
     if (!this.otpRequestTriggered) {
       this.otpRequestTriggered = true;

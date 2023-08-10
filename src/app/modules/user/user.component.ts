@@ -10,10 +10,8 @@ export class UserComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.proceedToLogin();
-  }
-
-  proceedToLogin(): void {
-    this.router.navigate(['/user/login']);
+    if (this.router.url === '/user' || this.router.url === '/user/') {
+      this.router.navigate(['/user/home']);
+    }
   }
 }

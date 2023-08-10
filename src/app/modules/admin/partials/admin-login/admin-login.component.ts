@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Subject, takeUntil } from 'rxjs';
 import { AdminLogin } from 'src/app/core/models/admin/adminModel';
 import { AdminAuthenticationService } from 'src/app/core/services/authentication/admin-authentication/admin-authentication.service';
 
@@ -15,6 +16,8 @@ export class AdminLoginComponent {
     private toast: HotToastService,
     private router: Router
   ) {}
+
+  private ngUnsubscribe = new Subject<void>();
   email: string = '';
   password: string = '';
   loading: boolean = false;
@@ -26,6 +29,11 @@ export class AdminLoginComponent {
   // goToForgotPassword(): void {
   //   this.router.navigate(['/admin/forgot']);
   // }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   onSubmit() {
     try {
@@ -46,25 +54,29 @@ export class AdminLoginComponent {
       }
 
       this.loading = true;
-      this.service.doLogin(user).subscribe(
-        (response) => {
-          if (response.token) {
-            localStorage.setItem('adminToken', response.token);
-            this.router.navigate(['/admin/home']);
-          } else {
+      this.service
+        .doLogin(user)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(
+          (response) => {
+            if (response.token) {
+              localStorage.setItem('adminToken', response.token);
+              localStorage.setItem('adminName', response.name);
+              this.router.navigate(['/admin/home']);
+            } else {
+              this.loading = false;
+              this.toast.error(response.message);
+              console.error('An error occured');
+            }
+          },
+          (error) => {
+            this.toast.error(error);
             this.loading = false;
-            this.toast.error(response.message);
-            console.error('An error occured');
+          },
+          () => {
+            this.loading = false;
           }
-        },
-        (error) => {
-          this.toast.error(error);
-          this.loading = false;
-        },
-        () => {
-          this.loading = false;
-        }
-      );
+        );
     } catch (error) {
       console.error(error);
       this.loading = false;

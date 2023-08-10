@@ -12,8 +12,13 @@ export class AdminAuthenticationService {
   private server: string = 'http://localhost:6335/admin/';
   // private server: string = 'https://libestorary.onrender.com/user/';
 
-  doLogin(user: AdminLogin): Observable<{ token?: string; message: string }> {
+  doLogin(
+    user: AdminLogin
+  ): Observable<{ token?: string; message: string; name: string }> {
     const url = `${this.server}login`;
-    return this.http.post<{ token?: string; message: string }>(url, user);
+    return this.http.post<{ token?: string; message: string; name: string }>(
+      url,
+      user
+    );
   }
 }

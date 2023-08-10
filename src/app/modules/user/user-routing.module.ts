@@ -5,6 +5,8 @@ import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
 import { UserHomePageComponent } from './pages/user-home-page/user-home-page.component';
 import { userAuthGuard } from 'src/app/core/guards/user-auth-guard/user-auth.guard';
+import { UserSearchPageComponent } from './pages/user-search-page/user-search-page.component';
+import { UserProfilePageComponent } from './pages/user-profile-page/user-profile-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,16 @@ const routes: Routes = [
       {
         path: 'home',
         component: UserHomePageComponent,
+        canActivate: [userAuthGuard]
+      },
+      {
+        path: 'search',
+        component: UserSearchPageComponent,
+        canActivate: [userAuthGuard]
+      },
+      {
+        path: 'profile',
+        component: UserProfilePageComponent,
         canActivate: [userAuthGuard]
       },
     ],

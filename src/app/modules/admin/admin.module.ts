@@ -10,6 +10,9 @@ import { AdminSignupComponent } from './partials/admin-signup/admin-signup.compo
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminSidebarComponent } from './partials/admin-sidebar/admin-sidebar.component';
+import { AdminHeaderComponent } from './partials/admin-header/admin-header.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,15 @@ import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.
     AdminSignupComponent,
     AdminLoginPageComponent,
     AdminHomePageComponent,
+    AdminSidebarComponent,
+    AdminHeaderComponent,
   ],
-  imports: [CommonModule, FormsModule, AdminRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AdminRoutingModule,
+    SharedModule,
+    FontAwesomeModule,
+  ],
 })
 export class AdminModule {}

@@ -1,0 +1,13 @@
+<li
+  [class.md:px-4]="paddingX"
+  [class.md:py-2]="paddingY"
+  [class.hover:text-indigo-400]="hover"
+>
+  <a
+    (click)="goToSelected()"
+    [class.text-indigo-500]="active"
+    [class.hover:text-indigo-500]="hover && !active"
+    class="cursor-pointer"
+    >{{ label }}</a
+  >
+</li>
