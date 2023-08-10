@@ -15,7 +15,6 @@ import { UserModule } from './modules/user/user.module';
 import { InjectJwtService } from './core/interceptors/inject-jwt/inject-jwt.service';
 import { ErrorHandlingService } from './core/interceptors/error-handling/error-handling.service';
 import { SharedModule } from './shared/shared.module';
-import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +25,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     FormsModule,
     HttpClientModule,
     AdminModule,
-    NgApexchartsModule,
     UserModule,
     SharedModule,
   ],

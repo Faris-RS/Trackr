@@ -13,6 +13,8 @@ import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminSidebarComponent } from './partials/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderComponent } from './partials/admin-header/admin-header.component';
+import { ZoomableTimeseriesComponent } from './graphs/zoomable-timeseries/zoomable-timeseries.component';
+import { BarChartComponent } from './graphs/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { AdminHeaderComponent } from './partials/admin-header/admin-header.compo
     AdminHomePageComponent,
     AdminSidebarComponent,
     AdminHeaderComponent,
+    ZoomableTimeseriesComponent,
+    BarChartComponent,
   ],
   imports: [
     CommonModule,
