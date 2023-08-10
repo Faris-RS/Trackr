@@ -13,10 +13,10 @@ import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminSidebarComponent } from './partials/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderComponent } from './partials/admin-header/admin-header.component';
-import { ZoomableTimeseriesComponent } from './graphs/zoomable-timeseries/zoomable-timeseries.component';
 import { BarChartComponent } from './graphs/bar-chart/bar-chart.component';
-import { LineChartComponent } from './graphs/line-chart/line-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
+import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     AdminHomePageComponent,
     AdminSidebarComponent,
     AdminHeaderComponent,
-    ZoomableTimeseriesComponent,
     BarChartComponent,
-    LineChartComponent,
+    HeatmapComponent,
+    PieChartComponent,
   ],
   imports: [
     CommonModule,
