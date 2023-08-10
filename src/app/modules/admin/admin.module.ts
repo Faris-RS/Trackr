@@ -18,6 +18,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
 import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 import { SidebarOptionComponent } from './components/sidebar-option/sidebar-option.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     SharedModule,
     FontAwesomeModule,
     NgApexchartsModule,
+    MatTableModule,
   ],
 })
 export class AdminModule {}
