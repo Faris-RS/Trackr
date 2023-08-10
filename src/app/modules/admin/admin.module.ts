@@ -18,7 +18,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
 import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 import { SidebarOptionComponent } from './components/sidebar-option/sidebar-option.component';
-import { MatTableModule } from '@angular/material/table';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserListWithSearchComponent } from './components/user-list-with-search/user-list-with-search.component';
+import { UserListWithSortComponent } from './components/user-list-with-sort/user-list-with-sort.component';
+// import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { MatTableModule } from '@angular/material/table';
     HeatmapComponent,
     PieChartComponent,
     SidebarOptionComponent,
+    UserListComponent,
+    UserListWithSearchComponent,
+    UserListWithSortComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +48,7 @@ import { MatTableModule } from '@angular/material/table';
     SharedModule,
     FontAwesomeModule,
     NgApexchartsModule,
-    MatTableModule,
+    // MatTableModule,
   ],
 })
 export class AdminModule {}
