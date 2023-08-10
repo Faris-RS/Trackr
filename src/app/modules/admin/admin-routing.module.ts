@@ -16,14 +16,24 @@ const routes: Routes = [
         path: 'login',
         component: AdminLoginPageComponent,
       },
-      // {
-      //   path: 'register',
-      //   component: AdminSignupPageComponent,
-      // },
       {
         path: 'home',
+        redirectTo: 'dashboard',
+      },
+      {
+        path: 'dashboard',
         component: AdminHomePageComponent,
-        canActivate: [adminAuthGuard]
+        canActivate: [adminAuthGuard],
+      },
+      {
+        path: 'user-list',
+        component: AdminHomePageComponent,
+        canActivate: [adminAuthGuard],
+      },
+      {
+        path: 'vehicle-details',
+        component: AdminHomePageComponent,
+        canActivate: [adminAuthGuard],
       },
     ],
   },

@@ -3,23 +3,14 @@
   style="background-color: #161616"
 >
   <!-- Dashboard -->
-  <div
-    class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"
-  >
-    <fa-icon [icon]="dashboard"></fa-icon>
-  </div>
+  <app-sidebar-option
+    [link]="dashboardLink"
+    [icon]="dashboard"
+  ></app-sidebar-option>
 
   <!-- Vehicle Details -->
-  <div
-    class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"
-  >
-    <fa-icon [icon]="car"></fa-icon>
-  </div>
+  <app-sidebar-option [link]="carLink" [icon]="car"></app-sidebar-option>
 
   <!-- User List -->
-  <div
-    class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white"
-  >
-    <fa-icon [icon]="users"></fa-icon>
-  </div>
+  <app-sidebar-option [link]="usersLink" [icon]="users"></app-sidebar-option>
 </aside>

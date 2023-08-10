@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faChartLine, faCar, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,4 +11,10 @@ export class AdminSidebarComponent {
   dashboard = faChartLine;
   car = faCar;
   users = faUsers;
+
+  dashboardLink = 'dashboard';
+  carLink = 'vehicle-details';
+  usersLink = 'user-list';
+
+  constructor(private router: Router) {}
 }
