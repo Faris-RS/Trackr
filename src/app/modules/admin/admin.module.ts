@@ -18,6 +18,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
 import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 import { SidebarOptionComponent } from './components/sidebar-option/sidebar-option.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     HeatmapComponent,
     PieChartComponent,
     SidebarOptionComponent,
+    DataTableComponent,
   ],
   imports: [
     CommonModule,
