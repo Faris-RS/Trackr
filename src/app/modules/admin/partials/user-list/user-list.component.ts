@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GetUsersService } from '../../services/get-users/get-users.service';
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+
 export interface UserData {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
 }
 
@@ -11,25 +14,29 @@ export interface UserData {
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent {
-  users: UserData[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Johny Doe', email: 'john@example.com' },
-    { id: 3, name: 'Johner Doe', email: 'john@example.com' },
-    { id: 4, name: 'Jane Smith', email: 'jane@example.com' },
-  ];
-  // users: UserData = []
+export class UserListComponent implements OnInit {
+  ascending = faSortUp;
+  descending = faSortDown;
+
+  users: UserData[] = [];
+  sortColumn: keyof UserData | null = null;
+  sortDirection: 'asc' | 'desc' = 'asc';
+  searchText: string = '';
+  filteredUsers: UserData[] = [];
 
   constructor(private service: GetUsersService) {}
 
   ngOnInit() {
     this.service.getAllUsers().subscribe((result) => {
-      console.log(result.users);
+      this.users = result.users.map((user: any, index: number) => ({
+        id: index + 1,
+        ...user,
+      }));
+      console.log(this.users);
+
+      this.applySortAndFilter();
     });
   }
-
-  sortColumn: keyof UserData | null = null;
-  sortDirection: 'asc' | 'desc' = 'asc';
 
   toggleSort(column: keyof UserData): void {
     if (this.sortColumn === column) {
@@ -70,14 +77,12 @@ export class UserListComponent {
     }
   }
 
-  searchText: string = '';
-  filteredUsers: UserData[] = this.users;
-
   applyFilter(): void {
     const filterValue = this.searchText.toLowerCase();
     this.filteredUsers = this.users.filter(
       (user) =>
-        user.name.toLowerCase().includes(filterValue) ||
+        user.firstName.toLowerCase().includes(filterValue) ||
+        user.lastName.toLowerCase().includes(filterValue) ||
         user.email.toLowerCase().includes(filterValue)
     );
   }

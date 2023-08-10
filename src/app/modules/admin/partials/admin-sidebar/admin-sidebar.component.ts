@@ -12,9 +12,9 @@ export class AdminSidebarComponent {
   car = faCar;
   users = faUsers;
 
-  dashboardLink = 'dashboard';
-  carLink = 'vehicle-details';
-  usersLink = 'user-list';
+  dashboardLink = 'admin/dashboard';
+  carLink = 'admin/vehicle-details';
+  usersLink = 'admin/user-list';
 
   constructor(private router: Router) {}
 }
