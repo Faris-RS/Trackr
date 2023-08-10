@@ -18,6 +18,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
 import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 import { SidebarOptionComponent } from './components/sidebar-option/sidebar-option.component';
+import { UserListComponent } from './partials/user-list/user-list.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jwt.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     HeatmapComponent,
     PieChartComponent,
     SidebarOptionComponent,
+    UserListComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +45,13 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     SharedModule,
     FontAwesomeModule,
     NgApexchartsModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InjectJwtService,
+      multi: true,
+    },
   ],
 })
 export class AdminModule {}
