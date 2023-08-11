@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GetUsersService } from '../../services/get-users/get-users.service';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-
-export interface UserData {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+import { UserData } from 'src/app/core/models/admin/userModel';
+import { BlockUnblockUserService } from '../../services/block-unblock-user/block-unblock-user.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -23,19 +20,32 @@ export class UserListComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
   searchText: string = '';
   filteredUsers: UserData[] = [];
+  loading: boolean = false;
 
-  constructor(private service: GetUsersService) {}
+  constructor(
+    private service: GetUsersService,
+    private toggleStatus: BlockUnblockUserService,
+    private toast: HotToastService
+  ) {}
+
+  private ngUnsubscribe = new Subject<void>();
 
   ngOnInit() {
-    this.service.getAllUsers().subscribe((result) => {
-      this.users = result.users.map((user: any, index: number) => ({
-        id: index + 1,
-        ...user,
-      }));
-      console.log(this.users);
+    this.service
+      .getAllUsers()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((result) => {
+        this.users = result.users.map((user: any, index: number) => ({
+          id: index + 1,
+          ...user,
+        }));
+        this.applySortAndFilter();
+      });
+  }
 
-      this.applySortAndFilter();
-    });
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   toggleSort(column: keyof UserData): void {
@@ -45,8 +55,7 @@ export class UserListComponent implements OnInit {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-
-    this.applySortAndFilter(); // Apply both sorting and filtering
+    this.applySortAndFilter();
   }
 
   applySortAndFilter(): void {
@@ -59,7 +68,6 @@ export class UserListComponent implements OnInit {
       this.users.sort((a, b) => {
         const aValue = a[this.sortColumn as keyof UserData];
         const bValue = b[this.sortColumn as keyof UserData];
-
         if (typeof aValue === 'number' && typeof bValue === 'number') {
           return this.sortDirection === 'asc'
             ? aValue - bValue
@@ -72,6 +80,19 @@ export class UserListComponent implements OnInit {
             : bValue.localeCompare(aValue);
         }
 
+        if (typeof aValue === 'boolean' && typeof bValue === 'boolean') {
+          return this.sortDirection === 'asc'
+            ? aValue === bValue
+              ? 0
+              : aValue
+              ? -1
+              : 1
+            : aValue === bValue
+            ? 0
+            : aValue
+            ? 1
+            : -1;
+        }
         return 0;
       });
     }
@@ -85,5 +106,31 @@ export class UserListComponent implements OnInit {
         user.lastName.toLowerCase().includes(filterValue) ||
         user.email.toLowerCase().includes(filterValue)
     );
+  }
+
+  toggleBlock(mail: string): void {
+    this.loading = true;
+    this.toggleStatus
+      .blockUser(mail)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.service
+            .getAllUsers()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((result) => {
+              this.users = result.users.map((user: any, index: number) => ({
+                id: index + 1,
+                ...user,
+              }));
+              this.applySortAndFilter();
+            });
+          this.loading = false;
+          this.toast.success(response.message);
+        } else {
+          this.loading = false;
+          this.toast.error(response.message);
+        }
+      });
   }
 }
