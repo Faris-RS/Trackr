@@ -50,6 +50,14 @@
             >Registration Number</span
           >
         </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('rented')"
+            >Rent Status</span
+          >
+        </th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
@@ -60,11 +68,32 @@
         </td>
         <td class="px-6 py-4 whitespace-nowrap">{{ vehicle.vehicleYear }}</td>
         <td class="px-6 py-4 whitespace-nowrap uppercase">
-          {{ vehicle?.insuranceExpiry }}
+          {{ vehicle?.insuranceExpiry | date : "dd/MM/yyyy" }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap uppercase">
           {{ vehicle?.registrationNumber }}
         </td>
+        <div *ngIf="!vehicle?.rented">
+          <td
+            (click)="toggleModal()"
+            class="px-6 py-4 whitespace-nowrap uppercase"
+          >
+            Not-Rented
+          </td>
+        </div>
+
+        <div *ngIf="vehicle?.rented">
+          <td class="px-6 py-4 whitespace-nowrap uppercase">Rented</td>
+          <td class="px-6 py-4 whitespace-nowrap uppercase">
+            {{ vehicle?.rentedDate | date : "dd/MM/yyyy" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap uppercase">
+            {{ vehicle?.returnDate | date : "dd/MM/yyyy" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap uppercase">
+            {{ vehicle?.rentedBy }}
+          </td>
+        </div>
       </tr>
     </tbody>
   </table>
@@ -74,4 +103,11 @@
   class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
 >
   <app-spinner></app-spinner>
+</div>
+<div
+  *ngIf="modal"
+  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
+>
+<button class="bg-red-500" (click)="toggleModal()"> Close </button>
+
 </div>

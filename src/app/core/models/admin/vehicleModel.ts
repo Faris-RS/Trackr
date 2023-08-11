@@ -4,4 +4,8 @@ export interface VehicleModel {
   vehicleYear: number;
   insuranceExpiry: Date;
   registrationNumber: string;
+  rented?: boolean;
+  rentedDate?: Date;
+  returnDate?: Date;
+  rentedBy?: string;
 }

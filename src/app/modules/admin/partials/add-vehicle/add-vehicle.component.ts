@@ -36,7 +36,7 @@ export class AddVehicleComponent {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-  
+
   onSubmit(): void {
     if (
       !this.vehicleName.trim() ||

@@ -22,6 +22,7 @@ export class VehicleListComponent {
   searchText: string = '';
   filteredVehicles: VehicleModel[] = [];
   loading: boolean = false;
+  modal: boolean = false;
 
   ngOnInit() {
     this.service
@@ -32,8 +33,6 @@ export class VehicleListComponent {
           id: index + 1,
           ...user,
         }));
-        console.log(this.vehicles);
-        
         this.applySortAndFilter();
       });
   }
@@ -100,5 +99,9 @@ export class VehicleListComponent {
         vehicles.vehicleName.toLowerCase().includes(filterValue) ||
         vehicles.registrationNumber.toLowerCase().includes(filterValue)
     );
+  }
+
+  toggleModal(): void {
+    this.modal = !this.modal;
   }
 }
