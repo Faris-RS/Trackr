@@ -35,6 +35,11 @@ const routes: Routes = [
         component: AdminHomePageComponent,
         canActivate: [adminAuthGuard],
       },
+      {
+        path: 'add-vehicle',
+        component: AdminHomePageComponent,
+        canActivate: [adminAuthGuard],
+      },
     ],
   },
 ];

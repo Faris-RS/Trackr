@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GetUsersService } from '../../services/get-users/get-users.service';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { UserData } from 'src/app/core/models/admin/userModel';
@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   ascending = faSortUp;
   descending = faSortDown;
 

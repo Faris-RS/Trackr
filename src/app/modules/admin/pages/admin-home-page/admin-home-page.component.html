@@ -24,6 +24,17 @@
           class="grid lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1"
         ></div>
       </div>
+
+      <!-- Vehicle List -->
+      <div class="w-full" *ngIf="link === 'vehicle-details'">
+        <app-vehicle-list></app-vehicle-list>
+      </div>
+
+      <!-- Add Vehicle -->
+      <div class="w-full" *ngIf="link === 'add-vehicle'">
+        <app-add-vehicle></app-add-vehicle>
+      </div>
+
       <!-- User List -->
       <div class="w-full" *ngIf="link === 'user-list'">
         <app-user-list></app-user-list>

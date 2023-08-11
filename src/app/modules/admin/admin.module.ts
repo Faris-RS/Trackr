@@ -21,6 +21,8 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
 import { UserListComponent } from './partials/user-list/user-list.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jwt.service';
+import { VehicleListComponent } from './partials/vehicle-list/vehicle-list.component';
+import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jw
     PieChartComponent,
     SidebarOptionComponent,
     UserListComponent,
+    VehicleListComponent,
+    AddVehicleComponent,
   ],
   imports: [
     CommonModule,
