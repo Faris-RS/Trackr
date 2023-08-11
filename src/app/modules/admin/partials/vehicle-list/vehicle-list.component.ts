@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
 import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicles/get-vehicles.service';
@@ -10,10 +9,7 @@ import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicle
   styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent {
-  constructor(
-    private toast: HotToastService,
-    private service: GetVehiclesService
-  ) {}
+  constructor(private service: GetVehiclesService) {}
   private ngUnsubscribe = new Subject<void>();
 
   vehicles: VehicleModel[] = [];
@@ -23,6 +19,7 @@ export class VehicleListComponent {
   filteredVehicles: VehicleModel[] = [];
   loading: boolean = false;
   modal: boolean = false;
+  selectedVehicle: string = '';
 
   ngOnInit() {
     this.service
@@ -101,7 +98,12 @@ export class VehicleListComponent {
     );
   }
 
-  toggleModal(): void {
-    this.modal = !this.modal;
+  showModal(id: string): void {
+    this.selectedVehicle = id;
+    this.modal = true;
+  }
+
+  closeModal(): void {
+    this.modal = false;
   }
 }

@@ -58,14 +58,36 @@
             >Rent Status</span
           >
         </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('rentedBy')"
+            >Rented To</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('rentedDate')"
+            >Rented Date</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('returnDate')"
+            >Return Date</span
+          >
+        </th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
       <tr *ngFor="let vehicle of filteredVehicles" class="hover:bg-gray-50">
         <td class="px-6 py-4 whitespace-nowrap">{{ vehicle?.id }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          {{ vehicle.vehicleName }}
-        </td>
+        <td class="px-6 py-4 whitespace-nowrap">{{ vehicle.vehicleName }}</td>
         <td class="px-6 py-4 whitespace-nowrap">{{ vehicle.vehicleYear }}</td>
         <td class="px-6 py-4 whitespace-nowrap uppercase">
           {{ vehicle?.insuranceExpiry | date : "dd/MM/yyyy" }}
@@ -73,41 +95,58 @@
         <td class="px-6 py-4 whitespace-nowrap uppercase">
           {{ vehicle?.registrationNumber }}
         </td>
-        <div *ngIf="!vehicle?.rented">
-          <td
-            (click)="toggleModal()"
-            class="px-6 py-4 whitespace-nowrap uppercase"
+        <td
+          class="px-6 py-4 whitespace-nowrap uppercase"
+          *ngIf="!vehicle?.rented"
+        >
+          <span (click)="showModal(vehicle.registrationNumber)"
+            >Not-Rented</span
           >
-            Not-Rented
-          </td>
-        </div>
-
-        <div *ngIf="vehicle?.rented">
-          <td class="px-6 py-4 whitespace-nowrap uppercase">Rented</td>
-          <td class="px-6 py-4 whitespace-nowrap uppercase">
-            {{ vehicle?.rentedDate | date : "dd/MM/yyyy" }}
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap uppercase">
-            {{ vehicle?.returnDate | date : "dd/MM/yyyy" }}
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap uppercase">
-            {{ vehicle?.rentedBy }}
-          </td>
-        </div>
+        </td>
+        <td
+          class="px-6 py-4 whitespace-nowrap uppercase"
+          *ngIf="vehicle?.rented"
+        >
+          Rented
+        </td>
+        <td
+          class="px-6 py-4 whitespace-nowrap uppercase"
+          *ngIf="vehicle?.rented"
+        >
+          {{ vehicle?.rentedBy }}
+        </td>
+        <td
+          class="px-6 py-4 whitespace-nowrap uppercase"
+          *ngIf="vehicle?.rented"
+        >
+          {{ vehicle?.rentedDate | date : "dd/MM/yyyy" }}
+        </td>
+        <td
+          class="px-6 py-4 whitespace-nowrap uppercase"
+          *ngIf="vehicle?.rented"
+        >
+          {{ vehicle?.returnDate | date : "dd/MM/yyyy" }}
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- Spinned Modal -->
 <div
   *ngIf="loading"
   class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
 >
   <app-spinner></app-spinner>
 </div>
+
+<!-- Add Rent Details Modal -->
 <div
   *ngIf="modal"
-  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
+  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-80"
 >
-<button class="bg-red-500" (click)="toggleModal()"> Close </button>
-
+  <button class="bg-red-500" (click)="closeModal()">Close</button>
+  <app-add-rent-details
+    [selectedVehicle]="selectedVehicle"
+  ></app-add-rent-details>
 </div>
