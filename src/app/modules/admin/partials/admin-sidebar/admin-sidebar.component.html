@@ -1,0 +1,16 @@
+<aside
+  class="h-full w-16 flex flex-col space-y-10 items-center justify-center relative text-white"
+  style="background-color: #161616"
+>
+  <!-- Dashboard -->
+  <app-sidebar-option
+    [link]="dashboardLink"
+    [icon]="dashboard"
+  ></app-sidebar-option>
+
+  <!-- Vehicle Details -->
+  <app-sidebar-option [link]="carLink" [icon]="car"></app-sidebar-option>
+
+  <!-- User List -->
+  <app-sidebar-option [link]="usersLink" [icon]="users"></app-sidebar-option>
+</aside>

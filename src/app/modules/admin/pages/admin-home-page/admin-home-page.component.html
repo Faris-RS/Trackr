@@ -1,0 +1,33 @@
+<div class="h-screen w-full bg-white relative flex overflow-hidden">
+  <!-- Sidebar -->
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <div class="w-full h-full flex flex-col justify-between">
+    <!-- Header -->
+    <app-admin-header></app-admin-header>
+
+    <!-- Main -->
+    <main
+      class="sm:max-w-fit md:max-w-full h-full flex relative overflow-y-hidden"
+    >
+      <!-- Dashboard -->
+      <div
+        class="h-full w-full m-4 items-start rounded-tl gap-4 overflow-y-scroll"
+        *ngIf="link === 'dashboard'"
+      >
+        <app-heatmap></app-heatmap>
+        <div class="grid md:grid-cols-2 gap-4 sm:grid-cols-1">
+          <app-bar-chart></app-bar-chart>
+          <app-pie-chart></app-pie-chart>
+        </div>
+        <div
+          class="grid lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1"
+        ></div>
+      </div>
+      <!-- User List -->
+      <div class="w-full" *ngIf="link === 'user-list'">
+        <app-user-list></app-user-list>
+      </div>
+    </main>
+  </div>
+</div>
