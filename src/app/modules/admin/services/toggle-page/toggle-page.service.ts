@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TogglePageService {
-  private newPage = new BehaviorSubject<string>('admin/dashboard');
+  private newPage = new BehaviorSubject<string>('admin/add-vehicle');
   currentPage$ = this.newPage.asObservable();
 
   setNewPage(data: string) {
