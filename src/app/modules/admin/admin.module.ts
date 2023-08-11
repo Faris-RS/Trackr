@@ -23,7 +23,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jwt.service';
 import { VehicleListComponent } from './partials/vehicle-list/vehicle-list.component';
 import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.component';
-import { AddRentDetailsComponent } from './partials/add-rent-details/add-rent-details.component';
+import { AddRentDetailsComponent } from './modals/add-rent-details/add-rent-details.component';
 
 @NgModule({
   declarations: [

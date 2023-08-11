@@ -143,10 +143,14 @@
 <!-- Add Rent Details Modal -->
 <div
   *ngIf="modal"
-  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-80"
+  class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-80"
+  (click)="closeModal()"
 >
-  <button class="bg-red-500" (click)="closeModal()">Close</button>
-  <app-add-rent-details
-    [selectedVehicle]="selectedVehicle"
-  ></app-add-rent-details>
+  <div class="bg-transparent backdrop-blur-sm absolute inset-0"></div>
+  <div class="bg-gray-100" (click)="$event.stopPropagation()">
+    <app-add-rent-details
+      [selectedVehicle]="selectedVehicle"
+      (closeModal)="closeModal()"
+    ></app-add-rent-details>
+  </div>
 </div>

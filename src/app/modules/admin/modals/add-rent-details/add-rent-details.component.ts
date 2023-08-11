@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { RentData, UserData } from 'src/app/core/models/admin/userModel';
 import { RentVehicleService } from '../../services/vehicle-managment/rent-vehicles/rent-vehicle.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { GetUsersService } from '../../services/get-users/get-users.service';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-rent-details',
@@ -12,6 +13,9 @@ import { GetUsersService } from '../../services/get-users/get-users.service';
 })
 export class AddRentDetailsComponent {
   @Input() selectedVehicle: string = '';
+  @Output() closeModal = new EventEmitter<void>();
+
+  cancel = faXmark;
 
   constructor(
     private toast: HotToastService,
@@ -52,8 +56,11 @@ export class AddRentDetailsComponent {
     }
   }
 
+  close(): void {
+    this.closeModal.emit();
+  }
+
   onSubmit(): void {
-    console.log('submit function inside vehicle list component');
     if (!this.rentedBy.trim() || !this.returnDate || !this.rentedUserOptions) {
       this.toast.error('Please fill all the fields');
       return;
@@ -68,16 +75,16 @@ export class AddRentDetailsComponent {
           email: selectedEmail,
           selectedVehicle: this.selectedVehicle,
         };
-        // this.rent
-        //   .rentVehicle(data)
-        //   .pipe(takeUntil(this.ngUnsubscribe))
-        //   .subscribe((response) => {
-        //     if (response.status === 200) {
-        //       this.toast.success(response.message);
-        //       // this.modal = false;
-        //     } else this.toast.error(response.message);
-        //   });
-        
+        this.rent
+          .rentVehicle(data)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((response) => {
+            if (response.status === 200) {
+              this.toast.success(response.message);
+              // this.modal = false;
+            } else this.toast.error(response.message);
+          });
+        this.closeModal.emit();
       }
     }
   }
