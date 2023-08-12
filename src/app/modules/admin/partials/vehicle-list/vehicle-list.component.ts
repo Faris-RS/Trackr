@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
 import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicles/get-vehicles.service';
+import {
+  faPen,
+  faRotateLeft,
+  faTrash,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -12,14 +18,17 @@ export class VehicleListComponent {
   constructor(private service: GetVehiclesService) {}
   private ngUnsubscribe = new Subject<void>();
 
+  edit = faPen;
+  trash = faTrash;
+  rentUser = faUserPlus;
+  return = faRotateLeft;
+
   vehicles: VehicleModel[] = [];
   sortColumn: keyof VehicleModel | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
   searchText: string = '';
   filteredVehicles: VehicleModel[] = [];
   loading: boolean = false;
-  modal: boolean = false;
-  selectedVehicle: string = '';
 
   ngOnInit() {
     this.service
@@ -98,12 +107,41 @@ export class VehicleListComponent {
     );
   }
 
-  showModal(id: string): void {
+  selectedVehicle: string = '';
+
+  // Edit Vehicle Modal
+  editModal: boolean = false;
+
+  showEditModal(id: string): void {
     this.selectedVehicle = id;
-    this.modal = true;
+    this.editModal = true;
   }
 
-  closeModal(): void {
-    this.modal = false;
+  closeEditModal(): void {
+    this.editModal = false;
+  }
+
+  // Rent Modal
+  rentModal: boolean = false;
+
+  showRentModal(id: string): void {
+    this.selectedVehicle = id;
+    this.rentModal = true;
+  }
+
+  closeRentModal(): void {
+    this.rentModal = false;
+  }
+
+  // Return Vehicle Modal
+  returnModal: boolean = false;
+
+  showReturnModal(id: string): void {
+    this.selectedVehicle = id;
+    this.returnModal = true;
+  }
+
+  closeReturnModal(): void {
+    this.returnModal = false;
   }
 }

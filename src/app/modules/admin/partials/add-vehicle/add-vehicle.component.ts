@@ -18,6 +18,7 @@ export class AddVehicleComponent {
   yearOptions: number[] = [];
   insuranceExpiry!: Date;
   registrationNumber: string = '';
+  rate: number = 0;
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -42,7 +43,8 @@ export class AddVehicleComponent {
       !this.vehicleName.trim() ||
       !this.registrationNumber.trim() ||
       !this.vehicleYear ||
-      !this.insuranceExpiry
+      !this.insuranceExpiry ||
+      !this.rate
     ) {
       this.toast.error('Please fill all the fields');
       return;
@@ -52,6 +54,7 @@ export class AddVehicleComponent {
         vehicleYear: this.vehicleYear,
         insuranceExpiry: this.insuranceExpiry,
         registrationNumber: this.registrationNumber,
+        rate: this.rate,
       };
       this.service
         .addVehicle(data)
