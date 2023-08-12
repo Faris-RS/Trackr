@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
 import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicles/get-vehicles.service';
+import {
+  faPen,
+  faRotateLeft,
+  faTrash,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -10,11 +15,13 @@ import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicle
   styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent {
-  constructor(
-    private toast: HotToastService,
-    private service: GetVehiclesService
-  ) {}
+  constructor(private service: GetVehiclesService) {}
   private ngUnsubscribe = new Subject<void>();
+
+  edit = faPen;
+  trash = faTrash;
+  rentUser = faUserPlus;
+  return = faRotateLeft;
 
   vehicles: VehicleModel[] = [];
   sortColumn: keyof VehicleModel | null = null;
@@ -22,7 +29,6 @@ export class VehicleListComponent {
   searchText: string = '';
   filteredVehicles: VehicleModel[] = [];
   loading: boolean = false;
-  modal: boolean = false;
 
   ngOnInit() {
     this.service
@@ -101,7 +107,41 @@ export class VehicleListComponent {
     );
   }
 
-  toggleModal(): void {
-    this.modal = !this.modal;
+  selectedVehicle: string = '';
+
+  // Edit Vehicle Modal
+  editModal: boolean = false;
+
+  showEditModal(id: string): void {
+    this.selectedVehicle = id;
+    this.editModal = true;
+  }
+
+  closeEditModal(): void {
+    this.editModal = false;
+  }
+
+  // Rent Modal
+  rentModal: boolean = false;
+
+  showRentModal(id: string): void {
+    this.selectedVehicle = id;
+    this.rentModal = true;
+  }
+
+  closeRentModal(): void {
+    this.rentModal = false;
+  }
+
+  // Return Vehicle Modal
+  returnModal: boolean = false;
+
+  showReturnModal(id: string): void {
+    this.selectedVehicle = id;
+    this.returnModal = true;
+  }
+
+  closeReturnModal(): void {
+    this.returnModal = false;
   }
 }

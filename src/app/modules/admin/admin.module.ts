@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 
@@ -23,6 +23,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jwt.service';
 import { VehicleListComponent } from './partials/vehicle-list/vehicle-list.component';
 import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.component';
+import { AddRentDetailsComponent } from './modals/add-rent-details/add-rent-details.component';
+import { EditVehicleDetailsComponent } from './modals/edit-vehicle-details/edit-vehicle-details.component';
+import { ReturnVehicleModalComponent } from './modals/return-vehicle-modal/return-vehicle-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.componen
     UserListComponent,
     VehicleListComponent,
     AddVehicleComponent,
+    AddRentDetailsComponent,
+    EditVehicleDetailsComponent,
+    ReturnVehicleModalComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +62,7 @@ import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.componen
       useClass: InjectJwtService,
       multi: true,
     },
+    DatePipe,
   ],
 })
 export class AdminModule {}

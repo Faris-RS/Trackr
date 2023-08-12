@@ -1,0 +1,85 @@
+<section class="py-1">
+  <div class="w-full px-4 mx-auto mt-6">
+    <div
+      class="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg border-0"
+    >
+      <div class="rounded-t mb-0 px-6 py-6">
+        <div class="text-center flex justify-between">
+          <h6 class="text-black text-6xl font-bold">Rent Details</h6>
+          <fa-icon
+            [icon]="cancel"
+            size="2x"
+            class="text-indigo-500 cursor-pointer"
+            (click)="close()"
+          ></fa-icon>
+        </div>
+        <hr class="mt-10 text-indigo-500" />
+      </div>
+      <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+        <form (ngSubmit)="onSubmit()">
+          <div class="flex flex-wrap">
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block text-xs uppercase text-gray-600 font-bold mb-2"
+                >
+                  Rented Date
+                </label>
+                <input
+                  type="date"
+                  name="rentedDate"
+                  id="rentedDate"
+                  class="border-0 px-3 py-3 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="rentedDate"
+                />
+              </div>
+            </div>
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-gray-600 text-xs font-bold mb-2"
+                >
+                  Return Date
+                </label>
+                <input
+                  type="date"
+                  class="border-0 px-3 py-3 placeholder-indigo-300 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  name="returnDate"
+                  id="returnDate"
+                  [(ngModel)]="returnDate"
+                />
+              </div>
+            </div>
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-gray-600 text-xs font-bold mb-2"
+                >
+                  Rented by
+                </label>
+                <select
+                  class="border-0 px-3 py-3 placeholder-indigo-300 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  name="rentedBy"
+                  id="rentedBy"
+                  [(ngModel)]="rentedBy"
+                >
+                  <option *ngFor="let user of rentedUserOptions" [value]="user">
+                    {{ user }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="px-4">
+            <button
+              class="bg-indigo-500 w-full mt-10 text-white active:bg-indigo-600 font-bold uppercase text-xs px-4 py-3 rounded outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="submit"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
