@@ -7,6 +7,7 @@ import { GetSelectedVehicleService } from '../../services/edit-vehicle/get-curre
 import { DatePipe } from '@angular/common';
 import { UserData } from 'src/app/core/models/admin/userModel';
 import { GetUsersService } from '../../services/get-users/get-users.service';
+import { EditVehicleService } from '../../services/edit-vehicle/edit-vehicle/edit-vehicle.service';
 
 @Component({
   selector: 'app-edit-vehicle-details',
@@ -23,12 +24,15 @@ export class EditVehicleDetailsComponent {
   people: UserData[] = [];
   rentedUserOptions: string[] = [];
   rentedUserMail: string[] = [];
+  dataChanged: boolean = false;
+  originalFormValues!: VehicleModel;
 
   constructor(
     private toast: HotToastService,
     private getVehicle: GetSelectedVehicleService,
     private datePipe: DatePipe,
-    private users: GetUsersService
+    private users: GetUsersService,
+    private service: EditVehicleService
   ) {
     const currentYear = new Date().getFullYear();
     for (let i = currentYear - 20; i <= currentYear; i++) {
@@ -70,6 +74,7 @@ export class EditVehicleDetailsComponent {
       .subscribe((response) => {
         if (response.status === 200) {
           this.vehicleData = response.vehicle;
+          this.originalFormValues = { ...this.vehicleData };
         } else this.toast.error(response.message);
       });
   }
@@ -83,7 +88,43 @@ export class EditVehicleDetailsComponent {
     }
   }
 
+  checkForChanges(): boolean {
+    return (
+      JSON.stringify(this.vehicleData) !==
+      JSON.stringify(this.originalFormValues)
+    );
+  }
+
   onSubmit() {
-    console.log('Edit functionality not yet implemented');
+    if (
+      !this.vehicleData.vehicleName.trim() ||
+      !this.vehicleData.registrationNumber.trim() ||
+      !this.vehicleData.vehicleYear ||
+      !this.vehicleData.insuranceExpiry ||
+      !this.vehicleData.rate
+    ) {
+      this.toast.error('Please fill all the fields');
+      return;
+    } else {
+      if (!this.dataChanged) {
+        this.toast.info('No changes were made.');
+        this.closeModal.emit();
+        return;
+      } else {
+        if (this.checkForChanges()) {
+          this.service
+            .editVehicle(this.vehicleData)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response) => {
+              this.toast.success(response.message);
+              this.closeModal.emit();
+            });
+        } else {
+          this.toast.info('No changes were made.');
+          this.closeModal.emit();
+          return;
+        }
+      }
+    }
   }
 }

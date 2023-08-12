@@ -9,5 +9,5 @@ export class GetSelectedVehicleService {
   constructor(private http: HttpClient) {}
   private server: string = 'http://localhost:6335/admin/vehicle/';
 
-  getSelectedVehicle
+  // getSelectedVehicle
 }
