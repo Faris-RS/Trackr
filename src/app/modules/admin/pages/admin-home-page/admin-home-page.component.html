@@ -10,11 +10,10 @@
     <main
       class="sm:max-w-fit md:max-w-full h-full flex relative overflow-y-hidden"
     >
-      <!-- <div
-        class="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll"
-      > -->
+      <!-- Dashboard -->
       <div
         class="h-full w-full m-4 items-start rounded-tl gap-4 overflow-y-scroll"
+        *ngIf="link === 'dashboard'"
       >
         <app-heatmap></app-heatmap>
         <div class="grid md:grid-cols-2 gap-4 sm:grid-cols-1">
@@ -24,61 +23,21 @@
         <div
           class="grid lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1"
         ></div>
-        <!-- Content -->
-        <!-- <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div>
-        <div
-          class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"
-        ></div> -->
+      </div>
+
+      <!-- Vehicle List -->
+      <div class="w-full" *ngIf="link === 'vehicle-details'">
+        <app-vehicle-list></app-vehicle-list>
+      </div>
+
+      <!-- Add Vehicle -->
+      <div class="w-full" *ngIf="link === 'add-vehicle'">
+        <app-add-vehicle></app-add-vehicle>
+      </div>
+
+      <!-- User List -->
+      <div class="w-full" *ngIf="link === 'user-list'">
+        <app-user-list></app-user-list>
       </div>
     </main>
   </div>

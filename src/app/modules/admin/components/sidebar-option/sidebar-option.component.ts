@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { TogglePageService } from '../../services/toggle-page/toggle-page.service';
 
 @Component({
   selector: 'app-sidebar-option',
@@ -9,11 +10,12 @@ import { Router } from '@angular/router';
 export class SidebarOptionComponent {
   @Input() link: string = '';
   @Input() icon: any;
-  
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private page: TogglePageService) {}
 
   goToSelected(): void {
     this.router.navigate([`/${this.link}`]);
+    this.page.setNewPage(`${this.link}`);
   }
 
   get isActive(): boolean {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 
@@ -18,6 +18,14 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { HeatmapComponent } from './graphs/heatmap/heatmap.component';
 import { PieChartComponent } from './graphs/pie-chart/pie-chart.component';
 import { SidebarOptionComponent } from './components/sidebar-option/sidebar-option.component';
+import { UserListComponent } from './partials/user-list/user-list.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InjectJwtService } from 'src/app/core/interceptors/inject-jwt/inject-jwt.service';
+import { VehicleListComponent } from './partials/vehicle-list/vehicle-list.component';
+import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.component';
+import { AddRentDetailsComponent } from './modals/add-rent-details/add-rent-details.component';
+import { EditVehicleDetailsComponent } from './modals/edit-vehicle-details/edit-vehicle-details.component';
+import { ReturnVehicleModalComponent } from './modals/return-vehicle-modal/return-vehicle-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +41,12 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     HeatmapComponent,
     PieChartComponent,
     SidebarOptionComponent,
+    UserListComponent,
+    VehicleListComponent,
+    AddVehicleComponent,
+    AddRentDetailsComponent,
+    EditVehicleDetailsComponent,
+    ReturnVehicleModalComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +55,14 @@ import { SidebarOptionComponent } from './components/sidebar-option/sidebar-opti
     SharedModule,
     FontAwesomeModule,
     NgApexchartsModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InjectJwtService,
+      multi: true,
+    },
+    DatePipe,
   ],
 })
 export class AdminModule {}
