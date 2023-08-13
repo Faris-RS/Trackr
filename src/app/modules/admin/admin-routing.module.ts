@@ -40,6 +40,11 @@ const routes: Routes = [
         component: AdminHomePageComponent,
         canActivate: [adminAuthGuard],
       },
+      {
+        path: 'order-history',
+        component: AdminHomePageComponent,
+        canActivate: [adminAuthGuard],
+      },
     ],
   },
 ];

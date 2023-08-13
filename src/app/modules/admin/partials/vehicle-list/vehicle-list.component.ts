@@ -37,16 +37,6 @@ export class VehicleListComponent {
   loading: boolean = false;
 
   ngOnInit() {
-    // this.service
-    //   .getAllVehicles()
-    //   .pipe(takeUntil(this.ngUnsubscribe))
-    //   .subscribe((result) => {
-    //     this.vehicles = result.vehicles.map((user: any, index: number) => ({
-    //       id: index + 1,
-    //       ...user,
-    //     }));
-    //     this.applySortAndFilter();
-    //   });
     this.retrieveVehicles();
   }
 
