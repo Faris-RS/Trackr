@@ -3,7 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { RentData, UserData } from 'src/app/core/models/admin/userModel';
 import { RentVehicleService } from '../../services/vehicle-managment/rent-vehicles/rent-vehicle.service';
 import { HotToastService } from '@ngneat/hot-toast';
-import { GetUsersService } from '../../services/get-users/get-users.service';
+import { GetUsersService } from '../../services/user-managment/get-users/get-users.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

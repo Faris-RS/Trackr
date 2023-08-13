@@ -5,10 +5,10 @@ import {
   ReturnVehicleModel,
   VehicleModel,
 } from 'src/app/core/models/admin/vehicleModel';
-import { GetSelectedVehicleService } from '../../services/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
+import { GetSelectedVehicleService } from '../../services/vehicle-managment/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { ReturnVehicleService } from '../../services/return-vehicle/return-vehicle.service';
+import { ReturnVehicleService } from '../../services/vehicle-managment/return-vehicle/return-vehicle.service';
 
 @Component({
   selector: 'app-return-vehicle-modal',

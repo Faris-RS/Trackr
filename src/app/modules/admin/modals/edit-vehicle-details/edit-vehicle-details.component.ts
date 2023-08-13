@@ -3,11 +3,11 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
-import { GetSelectedVehicleService } from '../../services/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
+import { GetSelectedVehicleService } from '../../services/vehicle-managment/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
 import { DatePipe } from '@angular/common';
 import { UserData } from 'src/app/core/models/admin/userModel';
-import { GetUsersService } from '../../services/get-users/get-users.service';
-import { EditVehicleService } from '../../services/edit-vehicle/edit-vehicle/edit-vehicle.service';
+import { GetUsersService } from '../../services/user-managment/get-users/get-users.service';
+import { EditVehicleService } from '../../services/vehicle-managment/edit-vehicle/edit-vehicle/edit-vehicle.service';
 
 @Component({
   selector: 'app-edit-vehicle-details',
