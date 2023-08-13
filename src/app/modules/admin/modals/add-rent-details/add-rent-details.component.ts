@@ -3,8 +3,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { RentData, UserData } from 'src/app/core/models/admin/userModel';
 import { RentVehicleService } from '../../services/vehicle-managment/rent-vehicles/rent-vehicle.service';
 import { HotToastService } from '@ngneat/hot-toast';
-import { GetUsersService } from '../../services/get-users/get-users.service';
+import { GetUsersService } from '../../services/user-managment/get-users/get-users.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-rent-details',
@@ -20,7 +21,8 @@ export class AddRentDetailsComponent {
   constructor(
     private toast: HotToastService,
     private rent: RentVehicleService,
-    private users: GetUsersService
+    private users: GetUsersService,
+    private datePipe: DatePipe
   ) {}
 
   private ngUnsubscribe = new Subject<void>();
@@ -31,6 +33,8 @@ export class AddRentDetailsComponent {
   rentedDate!: Date;
   rentedUserOptions: string[] = [];
   rentedUserMail: string[] = [];
+  todayFormatted: string = this.getFormattedDate(new Date());
+  loading: boolean = false;
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -56,6 +60,10 @@ export class AddRentDetailsComponent {
     }
   }
 
+  getFormattedDate(date: any): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
+  }
+
   close(): void {
     this.closeModal.emit();
   }
@@ -65,6 +73,7 @@ export class AddRentDetailsComponent {
       this.toast.error('Please fill all the fields');
       return;
     } else {
+      this.loading = true;
       const selectedIndex = this.rentedUserOptions.indexOf(this.rentedBy);
       if (selectedIndex !== -1) {
         const selectedEmail = this.rentedUserMail[selectedIndex];
@@ -81,10 +90,13 @@ export class AddRentDetailsComponent {
           .subscribe((response) => {
             if (response.status === 200) {
               this.toast.success(response.message);
-              // this.modal = false;
-            } else this.toast.error(response.message);
+              this.closeModal.emit();
+              this.loading = false;
+            } else {
+              this.toast.error(response.message);
+              this.loading = false;
+            }
           });
-        this.closeModal.emit();
       }
     }
   }

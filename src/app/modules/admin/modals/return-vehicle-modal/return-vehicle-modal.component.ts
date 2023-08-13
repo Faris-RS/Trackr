@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { HotToastService } from '@ngneat/hot-toast';
-import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
-import { GetSelectedVehicleService } from '../../services/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
+import {
+  ReturnVehicleModel,
+  VehicleModel,
+} from 'src/app/core/models/admin/vehicleModel';
+import { GetSelectedVehicleService } from '../../services/vehicle-managment/edit-vehicle/get-current-vehicle/get-selected-vehicle.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { ReturnVehicleService } from '../../services/vehicle-managment/return-vehicle/return-vehicle.service';
 
 @Component({
   selector: 'app-return-vehicle-modal',
@@ -19,11 +23,16 @@ export class ReturnVehicleModalComponent {
   vehicleData!: VehicleModel;
   weeks: number = 1;
   total: number = 0;
+  returnDate: Date = new Date();
+  fines: number = 0;
+  todayFormatted: string = this.getFormattedDate(new Date());
+  loading: boolean = false;
 
   constructor(
     private toast: HotToastService,
     private datePipe: DatePipe,
-    private getVehicle: GetSelectedVehicleService
+    private getVehicle: GetSelectedVehicleService,
+    private service: ReturnVehicleService
   ) {}
 
   private ngUnsubscribe = new Subject<void>();
@@ -42,20 +51,23 @@ export class ReturnVehicleModalComponent {
   }
 
   getFormattedDate(date: any): string {
-    // Format the date using the DatePipe
     return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 
   getVehicleDetails(): void {
+    this.loading = true;
     this.getVehicle
       .getSelectedVehicle(this.selectedVehicle)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
         if (response.status === 200) {
-          console.log(response.vehicle);
           this.vehicleData = response.vehicle;
           this.calculateTotal();
-        } else this.toast.error(response.message);
+          this.loading = false;
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
       });
   }
 
@@ -63,10 +75,39 @@ export class ReturnVehicleModalComponent {
     if (this.weeks < 1) {
       this.weeks = 1;
     }
-    this.total = this.vehicleData.rate * this.weeks;
+    if (this.fines < 0) {
+      this.fines = 0;
+    }
+    this.total = this.vehicleData.rate * this.weeks + this.fines;
   }
 
   onSubmit(): void {
-    console.log('Return functionality not yet implemented');
+    this.loading = true;
+    const returnData: ReturnVehicleModel = {
+      vehicle: this.vehicleData,
+      returnedDate: this.returnDate,
+      weeks: this.weeks,
+      fines: this.fines,
+      total: this.total,
+    };
+    if (!this.returnDate) {
+      this.toast.error('Please fill all the fields');
+      return;
+    } else {
+      console.log(returnData);
+      this.service
+        .returnVehicle(returnData)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((response) => {
+          if (response.status === 200) {
+            this.toast.success(response.message);
+            this.closeModal.emit();
+            this.loading = false;
+          } else {
+            this.toast.error(response.message);
+            this.loading = false;
+          }
+        });
+    }
   }
 }

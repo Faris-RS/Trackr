@@ -26,6 +26,7 @@ import { AddVehicleComponent } from './partials/add-vehicle/add-vehicle.componen
 import { AddRentDetailsComponent } from './modals/add-rent-details/add-rent-details.component';
 import { EditVehicleDetailsComponent } from './modals/edit-vehicle-details/edit-vehicle-details.component';
 import { ReturnVehicleModalComponent } from './modals/return-vehicle-modal/return-vehicle-modal.component';
+import { AdminOrderHistoryComponent } from './partials/admin-order-history/admin-order-history.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ReturnVehicleModalComponent } from './modals/return-vehicle-modal/retur
     AddRentDetailsComponent,
     EditVehicleDetailsComponent,
     ReturnVehicleModalComponent,
+    AdminOrderHistoryComponent,
   ],
   imports: [
     CommonModule,

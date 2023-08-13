@@ -4,9 +4,17 @@ export interface VehicleModel {
   vehicleYear: number;
   insuranceExpiry: Date;
   registrationNumber: string;
-  rate: number
+  rate: number;
   rented?: boolean;
   rentedDate?: Date;
   returnDate?: Date;
   rentedBy?: string;
+}
+
+export interface ReturnVehicleModel {
+  vehicle: VehicleModel
+  returnedDate: Date;
+  weeks: number;
+  fines: number;
+  total: number;
 }

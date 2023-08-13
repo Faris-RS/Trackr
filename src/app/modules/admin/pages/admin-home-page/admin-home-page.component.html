@@ -35,6 +35,11 @@
         <app-add-vehicle></app-add-vehicle>
       </div>
 
+      <!-- Order History -->
+      <div class="w-full" *ngIf="link === 'order-history'">
+        <app-admin-order-history></app-admin-order-history>
+      </div>
+
       <!-- User List -->
       <div class="w-full" *ngIf="link === 'user-list'">
         <app-user-list></app-user-list>

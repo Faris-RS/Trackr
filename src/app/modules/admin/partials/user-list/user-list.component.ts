@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GetUsersService } from '../../services/get-users/get-users.service';
+import { GetUsersService } from '../../services/user-managment/get-users/get-users.service';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { UserData } from 'src/app/core/models/admin/userModel';
-import { BlockUnblockUserService } from '../../services/block-unblock-user/block-unblock-user.service';
+import { BlockUnblockUserService } from '../../services/user-managment/block-unblock-user/block-unblock-user.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -31,6 +31,7 @@ export class UserListComponent {
   private ngUnsubscribe = new Subject<void>();
 
   ngOnInit() {
+    this.loading = true;
     this.service
       .getAllUsers()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -41,6 +42,7 @@ export class UserListComponent {
         }));
         this.applySortAndFilter();
       });
+    this.loading = false;
   }
 
   ngOnDestroy(): void {
@@ -59,8 +61,10 @@ export class UserListComponent {
   }
 
   applySortAndFilter(): void {
+    this.loading = true;
     this.applySort();
     this.applyFilter();
+    this.loading = false;
   }
 
   applySort(): void {
