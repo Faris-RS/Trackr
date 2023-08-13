@@ -167,6 +167,7 @@ export class VehicleListComponent {
     window.confirm(
       'Are you sure you want to delete this vehicle? This action is irreversible.'
     );
+    this.loading = true;
     this.selectedVehicle = id;
     this.deleter
       .deleteVehicle(this.selectedVehicle)
@@ -175,7 +176,11 @@ export class VehicleListComponent {
         if (response.status === 200) {
           this.toast.success(response.message);
           this.retrieveVehicles();
-        } else this.toast.error(response.message);
+          this.loading = false;
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
       });
   }
 

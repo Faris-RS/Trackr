@@ -17,14 +17,6 @@
       [(ngModel)]="password"
     ></app-input>
   </div>
-  <!-- <div class="flex justify-between"> -->
-  <!-- <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
-    <a (click)="goToRegister()">Register with us</a>
-  </div> -->
-  <!-- <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
-      <a (click)="goToForgotPassword()">Forgot your password?</a>
-    </div> -->
-  <!-- </div> -->
   <div *ngIf="loading; else elseBlock" class="pb-2 pt-4">
     <div class="flex items-center justify-center space-x-2">
       <div class="w-4 h-4 rounded-full animate-pulse bg-indigo-500"></div>
@@ -43,3 +35,11 @@
     </div>
   </ng-template>
 </form>
+
+<!-- Spinner Modal -->
+<div
+  *ngIf="loading"
+  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
+>
+  <app-spinner></app-spinner>
+</div>

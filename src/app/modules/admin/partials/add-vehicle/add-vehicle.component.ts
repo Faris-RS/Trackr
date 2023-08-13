@@ -60,9 +60,7 @@ export class AddVehicleComponent {
         .addVehicle(data)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((response) => {
-          console.log(response.status);
           if (response.status === 200) {
-            this.router.navigate(['/admin/dashboard']);
             this.toast.success(response.message);
           } else this.toast.error(response.message);
         });

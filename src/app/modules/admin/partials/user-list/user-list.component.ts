@@ -31,6 +31,7 @@ export class UserListComponent {
   private ngUnsubscribe = new Subject<void>();
 
   ngOnInit() {
+    this.loading = true;
     this.service
       .getAllUsers()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -41,6 +42,7 @@ export class UserListComponent {
         }));
         this.applySortAndFilter();
       });
+    this.loading = false;
   }
 
   ngOnDestroy(): void {
@@ -59,8 +61,10 @@ export class UserListComponent {
   }
 
   applySortAndFilter(): void {
+    this.loading = true;
     this.applySort();
     this.applyFilter();
+    this.loading = false;
   }
 
   applySort(): void {

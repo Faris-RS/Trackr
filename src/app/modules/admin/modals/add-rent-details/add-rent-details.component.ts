@@ -34,6 +34,7 @@ export class AddRentDetailsComponent {
   rentedUserOptions: string[] = [];
   rentedUserMail: string[] = [];
   todayFormatted: string = this.getFormattedDate(new Date());
+  loading: boolean = false;
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -72,6 +73,7 @@ export class AddRentDetailsComponent {
       this.toast.error('Please fill all the fields');
       return;
     } else {
+      this.loading = true;
       const selectedIndex = this.rentedUserOptions.indexOf(this.rentedBy);
       if (selectedIndex !== -1) {
         const selectedEmail = this.rentedUserMail[selectedIndex];
@@ -89,7 +91,11 @@ export class AddRentDetailsComponent {
             if (response.status === 200) {
               this.toast.success(response.message);
               this.closeModal.emit();
-            } else this.toast.error(response.message);
+              this.loading = false;
+            } else {
+              this.toast.error(response.message);
+              this.loading = false;
+            }
           });
       }
     }

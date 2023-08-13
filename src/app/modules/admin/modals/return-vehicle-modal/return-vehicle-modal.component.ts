@@ -26,6 +26,7 @@ export class ReturnVehicleModalComponent {
   returnDate: Date = new Date();
   fines: number = 0;
   todayFormatted: string = this.getFormattedDate(new Date());
+  loading: boolean = false;
 
   constructor(
     private toast: HotToastService,
@@ -38,7 +39,6 @@ export class ReturnVehicleModalComponent {
 
   ngOnInit(): void {
     this.getVehicleDetails();
-    // this.returnDate = new Date();
   }
 
   ngOnDestroy(): void {
@@ -55,6 +55,7 @@ export class ReturnVehicleModalComponent {
   }
 
   getVehicleDetails(): void {
+    this.loading = true;
     this.getVehicle
       .getSelectedVehicle(this.selectedVehicle)
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -62,7 +63,11 @@ export class ReturnVehicleModalComponent {
         if (response.status === 200) {
           this.vehicleData = response.vehicle;
           this.calculateTotal();
-        } else this.toast.error(response.message);
+          this.loading = false;
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
       });
   }
 
@@ -77,6 +82,7 @@ export class ReturnVehicleModalComponent {
   }
 
   onSubmit(): void {
+    this.loading = true;
     const returnData: ReturnVehicleModel = {
       vehicle: this.vehicleData,
       returnedDate: this.returnDate,
@@ -88,7 +94,6 @@ export class ReturnVehicleModalComponent {
       this.toast.error('Please fill all the fields');
       return;
     } else {
-      this.toast.info('Return functionality not yet implemented');
       console.log(returnData);
       this.service
         .returnVehicle(returnData)
@@ -97,7 +102,11 @@ export class ReturnVehicleModalComponent {
           if (response.status === 200) {
             this.toast.success(response.message);
             this.closeModal.emit();
-          } else this.toast.error(response.message);
+            this.loading = false;
+          } else {
+            this.toast.error(response.message);
+            this.loading = false;
+          }
         });
     }
   }

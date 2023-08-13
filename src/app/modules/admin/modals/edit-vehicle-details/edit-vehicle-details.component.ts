@@ -26,6 +26,7 @@ export class EditVehicleDetailsComponent {
   rentedUserMail: string[] = [];
   dataChanged: boolean = false;
   originalFormValues!: VehicleModel;
+  loading: boolean = false;
 
   constructor(
     private toast: HotToastService,
@@ -43,6 +44,7 @@ export class EditVehicleDetailsComponent {
   private ngUnsubscribe = new Subject<void>();
 
   ngOnInit(): void {
+    this.loading = true;
     this.getVehicleDetails();
     this.users
       .getAllUsers()
@@ -50,6 +52,7 @@ export class EditVehicleDetailsComponent {
       .subscribe((response) => {
         this.people = response.users;
         this.populateRentedUserOptions();
+        this.loading = false;
       });
   }
 
@@ -68,6 +71,7 @@ export class EditVehicleDetailsComponent {
   }
 
   getVehicleDetails(): void {
+    this.loading = true;
     this.getVehicle
       .getSelectedVehicle(this.selectedVehicle)
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -75,17 +79,23 @@ export class EditVehicleDetailsComponent {
         if (response.status === 200) {
           this.vehicleData = response.vehicle;
           this.originalFormValues = { ...this.vehicleData };
-        } else this.toast.error(response.message);
+          this.loading = false;
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
       });
   }
 
   populateRentedUserOptions() {
+    this.loading = true;
     for (let i = 0; i < this.people.length; i++) {
       this.rentedUserOptions.push(
         this.people[i].firstName + ' ' + this.people[i].lastName
       );
       this.rentedUserMail.push(this.people[i].email);
     }
+    this.loading = false;
   }
 
   checkForChanges(): boolean {
@@ -106,6 +116,7 @@ export class EditVehicleDetailsComponent {
       this.toast.error('Please fill all the fields');
       return;
     } else {
+      this.loading = true;
       if (!this.dataChanged) {
         this.toast.info('No changes were made.');
         this.closeModal.emit();
@@ -118,10 +129,12 @@ export class EditVehicleDetailsComponent {
             .subscribe((response) => {
               this.toast.success(response.message);
               this.closeModal.emit();
+              this.loading = false;
             });
         } else {
           this.toast.info('No changes were made.');
           this.closeModal.emit();
+          this.loading = false;
           return;
         }
       }
