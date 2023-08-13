@@ -81,10 +81,9 @@ export class AddRentDetailsComponent {
           .subscribe((response) => {
             if (response.status === 200) {
               this.toast.success(response.message);
-              // this.modal = false;
+              this.closeModal.emit();
             } else this.toast.error(response.message);
           });
-        this.closeModal.emit();
       }
     }
   }

@@ -8,6 +8,8 @@ import {
   faTrash,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { HotToastService } from '@ngneat/hot-toast';
+import { DeleteVehicleService } from '../../services/vehicle-managment/delete-vehicle/delete-vehicle.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -15,7 +17,11 @@ import {
   styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent {
-  constructor(private service: GetVehiclesService) {}
+  constructor(
+    private service: GetVehiclesService,
+    private toast: HotToastService,
+    private deleter: DeleteVehicleService
+  ) {}
   private ngUnsubscribe = new Subject<void>();
 
   edit = faPen;
@@ -31,6 +37,25 @@ export class VehicleListComponent {
   loading: boolean = false;
 
   ngOnInit() {
+    // this.service
+    //   .getAllVehicles()
+    //   .pipe(takeUntil(this.ngUnsubscribe))
+    //   .subscribe((result) => {
+    //     this.vehicles = result.vehicles.map((user: any, index: number) => ({
+    //       id: index + 1,
+    //       ...user,
+    //     }));
+    //     this.applySortAndFilter();
+    //   });
+    this.retrieveVehicles();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  retrieveVehicles(): void {
     this.service
       .getAllVehicles()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -41,11 +66,6 @@ export class VehicleListComponent {
         }));
         this.applySortAndFilter();
       });
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 
   toggleSort(column: keyof VehicleModel): void {
@@ -117,8 +137,13 @@ export class VehicleListComponent {
     this.editModal = true;
   }
 
+  errorEditing(): void {
+    this.toast.warning('Cannot edit details of a rented vehicle');
+  }
+
   closeEditModal(): void {
     this.editModal = false;
+    this.retrieveVehicles();
   }
 
   // Rent Modal
@@ -131,6 +156,7 @@ export class VehicleListComponent {
 
   closeRentModal(): void {
     this.rentModal = false;
+    this.retrieveVehicles();
   }
 
   // Return Vehicle Modal
@@ -143,5 +169,27 @@ export class VehicleListComponent {
 
   closeReturnModal(): void {
     this.returnModal = false;
+    this.retrieveVehicles();
+  }
+
+  // Delete Vehicle
+  deleteVehicle(id: string): void {
+    window.confirm(
+      'Are you sure you want to delete this vehicle? This action is irreversible.'
+    );
+    this.selectedVehicle = id;
+    this.deleter
+      .deleteVehicle(this.selectedVehicle)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.toast.success(response.message);
+          this.retrieveVehicles();
+        } else this.toast.error(response.message);
+      });
+  }
+
+  deleteError(): void {
+    this.toast.warning('Cannot delete a rented vehicle');
   }
 }
