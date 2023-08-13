@@ -5,6 +5,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  faFileExcel,
   faFilePdf,
   faPen,
   faRotateLeft,
@@ -12,13 +13,14 @@ import {
   faTrash,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { GetVehiclesService } from '../../services/vehicle-managment/get-vehicles/get-vehicles.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminOrderHistoryService } from 'src/app/core/services/order-history/admin-order-history/admin-order-history.service';
 import { OrderModel } from 'src/app/core/models/admin/orderModel';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-admin-order-history',
@@ -28,7 +30,6 @@ import html2canvas from 'html2canvas';
 export class AdminOrderHistoryComponent {
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
   constructor(
-    private services: GetVehiclesService,
     private service: AdminOrderHistoryService,
     private toast: HotToastService,
     private cdRef: ChangeDetectorRef
@@ -46,8 +47,8 @@ export class AdminOrderHistoryComponent {
   return = faRotateLeft;
   apply = faSearch;
   pdf = faFilePdf;
+  excel = faFileExcel;
 
-  // vehicles: VehicleModel[] = [];
   sortColumn: keyof OrderModel | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
   searchText: string = '';
@@ -95,11 +96,12 @@ export class AdminOrderHistoryComponent {
   }
 
   retrieveOrders(): void {
+    this.loading = true;
     this.service
       .retrieveOrders(this.currentMonth, this.currentYear)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((result) => {
-        this.toast.info(result.message);
+        this.toast.success(result.message);
         this.orders = result.orders.map((order: any, index: number) => ({
           id: index + 1,
           vehicleName: order.vehicle.vehicleName,
@@ -117,6 +119,7 @@ export class AdminOrderHistoryComponent {
         this.filteredOrders = this.orders;
         this.applySortAndFilter();
         this.cdRef.detectChanges();
+        this.loading = false;
       });
   }
 
@@ -180,11 +183,10 @@ export class AdminOrderHistoryComponent {
   }
 
   downloadPDF(): void {
-    this.toast.info('Feature in development');
-
+    this.loading = true;
     const pdfContent = document.getElementById('pdf-content');
     if (pdfContent) {
-      const margin = 20; // Adjust the margin size as needed
+      const margin = 20;
 
       html2canvas(pdfContent).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
@@ -194,8 +196,32 @@ export class AdminOrderHistoryComponent {
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
         pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
-        pdf.save('generated-pdf.pdf');
+        pdf.save(`${this.currentMonth} ${this.currentYear}` + '.pdf');
       });
     }
+    this.loading = false;
+  }
+
+  downloadExcel(): void {
+    this.loading = true;
+    if (this.orders.length > 0) {
+      const worksheet = XLSX.utils.json_to_sheet(this.orders);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+      const excelBuffer = XLSX.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array',
+      });
+      const blob = new Blob([excelBuffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
+      FileSaver.saveAs(
+        blob,
+        `${this.currentMonth} ${this.currentYear}` + '.xlsx'
+      );
+    } else this.toast.warning('There is no data to convert');
+    this.loading = false;
   }
 }

@@ -37,6 +37,13 @@
     />
     <button
       class="bg-indigo-500 px-4 hover:bg-indigo-600 hover:text-white ease-in-out duration-300 rounded-md"
+      (click)="downloadExcel()"
+      type="button"
+    >
+      <fa-icon [icon]="excel"></fa-icon>
+    </button>
+    <button
+      class="bg-indigo-500 px-4 hover:bg-indigo-600 hover:text-white ease-in-out duration-300 rounded-md"
       (click)="downloadPDF()"
       type="button"
     >
