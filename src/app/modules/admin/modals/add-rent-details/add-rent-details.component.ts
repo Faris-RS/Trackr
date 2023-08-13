@@ -5,6 +5,7 @@ import { RentVehicleService } from '../../services/vehicle-managment/rent-vehicl
 import { HotToastService } from '@ngneat/hot-toast';
 import { GetUsersService } from '../../services/user-managment/get-users/get-users.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-rent-details',
@@ -20,7 +21,8 @@ export class AddRentDetailsComponent {
   constructor(
     private toast: HotToastService,
     private rent: RentVehicleService,
-    private users: GetUsersService
+    private users: GetUsersService,
+    private datePipe: DatePipe
   ) {}
 
   private ngUnsubscribe = new Subject<void>();
@@ -31,6 +33,7 @@ export class AddRentDetailsComponent {
   rentedDate!: Date;
   rentedUserOptions: string[] = [];
   rentedUserMail: string[] = [];
+  todayFormatted: string = this.getFormattedDate(new Date());
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -54,6 +57,10 @@ export class AddRentDetailsComponent {
       );
       this.rentedUserMail.push(this.people[i].email);
     }
+  }
+
+  getFormattedDate(date: any): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 
   close(): void {

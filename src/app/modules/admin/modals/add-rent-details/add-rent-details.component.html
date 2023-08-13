@@ -31,6 +31,7 @@
                   id="rentedDate"
                   class="border-0 px-3 py-3 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   [(ngModel)]="rentedDate"
+                  [max]="todayFormatted"
                 />
               </div>
             </div>
@@ -47,6 +48,7 @@
                   name="returnDate"
                   id="returnDate"
                   [(ngModel)]="returnDate"
+                  [min]="todayFormatted"
                 />
               </div>
             </div>
