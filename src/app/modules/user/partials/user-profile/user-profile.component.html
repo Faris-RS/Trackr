@@ -1,0 +1,30 @@
+<div class="w-64 bg-white shadow-lg rounded-lg overflow-hidden my-4">
+  <img
+    class="w-full h-56 object-cover object-center"
+    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+    alt="{{ userData.firstName }}'s profile image"
+  />
+  <div class="flex items-center px-6 py-3 bg-indigo-500">
+    <fa-icon class="text-white" [icon]="rent"></fa-icon>
+    <h1 class="mx-3 text-white font-semibold text-lg">
+      {{ userData.isRenting ? "Currently Renting" : "Not yet renting" }}
+    </h1>
+  </div>
+  <div class="py-4 px-6">
+    <h1 class="text-2xl font-semibold text-gray-800">
+      {{ userData.firstName }} {{ userData.lastName }}
+    </h1>
+    <div class="flex items-center mt-4 text-gray-700">
+      <fa-icon [icon]="phone"></fa-icon>
+      <h1 class="px-2 text-sm">
+        {{
+          userData.phone || "No phone number is assosciated with this account"
+        }}
+      </h1>
+    </div>
+    <div class="flex items-center mt-4 text-gray-700">
+      <fa-icon [icon]="mail"></fa-icon>
+      <h1 class="px-2 text-sm">{{ userData.email }}</h1>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,11 @@ import { UserSearchPageComponent } from './pages/user-search-page/user-search-pa
 import { UserProfilePageComponent } from './pages/user-profile-page/user-profile-page.component';
 import { HeaderListComponent } from './components/header-list/header-list.component';
 import { UserFooterComponent } from './partials/user-footer/user-footer.component';
+import { UserTimelineComponent } from './partials/user-timeline/user-timeline.component';
+import { UserProfileComponent } from './partials/user-profile/user-profile.component';
+import { UserSearchComponent } from './partials/user-search/user-search.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserHeroComponent } from './partials/user-hero/user-hero.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,17 @@ import { UserFooterComponent } from './partials/user-footer/user-footer.componen
     UserProfilePageComponent,
     HeaderListComponent,
     UserFooterComponent,
+    UserTimelineComponent,
+    UserProfileComponent,
+    UserSearchComponent,
+    UserHeroComponent,
   ],
-  imports: [CommonModule, FormsModule, UserRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    UserRoutingModule,
+    SharedModule,
+    FontAwesomeModule,
+  ],
 })
 export class UserModule {}
