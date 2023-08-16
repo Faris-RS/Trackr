@@ -20,6 +20,7 @@ import { UserTimelineComponent } from './partials/user-timeline/user-timeline.co
 import { UserProfileComponent } from './partials/user-profile/user-profile.component';
 import { UserSearchComponent } from './partials/user-search/user-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserHeroComponent } from './partials/user-hero/user-hero.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UserTimelineComponent,
     UserProfileComponent,
     UserSearchComponent,
+    UserHeroComponent,
   ],
   imports: [
     CommonModule,
