@@ -1,7 +1,14 @@
 <app-user-header></app-user-header>
-<div style="min-height: 59vh;">
-
+<div style="min-height: 59vh">
   <app-user-hero></app-user-hero>
-  
+
+  <div class="grid grid-cols-4 gap-4 m-12">
+    <div class="w-full h-full" *ngFor="let vehicle of vehicles">
+      <app-user-rental-card
+        vehicleName="{{ vehicle.vehicleName }}"
+        rent="{{vehicle.rent}}"
+      ></app-user-rental-card>
+    </div>
+  </div>
 </div>
 <app-user-footer></app-user-footer>

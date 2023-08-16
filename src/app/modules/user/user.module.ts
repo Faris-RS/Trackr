@@ -21,6 +21,7 @@ import { UserProfileComponent } from './partials/user-profile/user-profile.compo
 import { UserSearchComponent } from './partials/user-search/user-search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserHeroComponent } from './partials/user-hero/user-hero.component';
+import { UserRentalCardComponent } from './components/user-rental-card/user-rental-card.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UserHeroComponent } from './partials/user-hero/user-hero.component';
     UserProfileComponent,
     UserSearchComponent,
     UserHeroComponent,
+    UserRentalCardComponent,
   ],
   imports: [
     CommonModule,

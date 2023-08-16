@@ -1,9 +1,9 @@
 <form (ngSubmit)="doSearch()">
   <div
-    class="flex items-center mt-10 p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-500"
+    class="test flex items-center mt-10 p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-500"
   >
     <form action=""></form>
-    <div class="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+    <div class="not flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
       <fa-icon [icon]="searchIcon"></fa-icon>
       <input
         class="bg-gray-100 outline-none text-indigo-500"
@@ -41,10 +41,15 @@
 </form>
 
 <div *ngIf="searchResults.length > 0" class="mt-4">
-  <h2>Search Results:</h2>
-  <ul>
-    <li *ngFor="let result of searchResults">{{ result.vehicleName }}</li>
+  <ul class="grid grid-cols-4 gap-4 m-12">
+    <div *ngFor="let result of searchResults">
+      <li>
+        <app-user-rental-card
+          vehicleName="{{ result.vehicleName }}"
+          rent="{{ result.rate }}"
+        >
+        </app-user-rental-card>
+      </li>
+    </div>
   </ul>
-
-
 </div>
