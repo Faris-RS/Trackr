@@ -61,7 +61,6 @@ export class UserSearchPageComponent {
         });
     } else {
       this.searchResults = [];
-      this.toast.info('Nothing in box');
     }
   }
 

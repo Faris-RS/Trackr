@@ -16,7 +16,7 @@ export class UserSignupPageComponent {
     private service: UserAuthenticationService,
     private toast: HotToastService,
     private router: Router,
-    private userDataService: UserDataService,
+    private userDataService: UserDataService
   ) {}
 
   private ngUnsubscribe = new Subject<void>();
@@ -100,6 +100,7 @@ export class UserSignupPageComponent {
         const user: UserRegister = {
           firstName: userData.firstName,
           lastName: userData.lastName,
+          phone: userData.phone,
           email: userData.email,
           password: userData.password,
         };

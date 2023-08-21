@@ -1,7 +1,10 @@
+import { RentedModel } from './vehicelModel';
+
 export interface UserRegister {
   firstName: string;
   lastName: string;
   email: string;
+  phone: number;
   password: string;
 }
 
@@ -11,10 +14,13 @@ export interface UserLogin {
 }
 
 export interface UserProfileModel {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: number;
-  image: string;
-  isRenting: boolean;
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: number;
+    image: string;
+    isRenting: boolean;
+  };
+  rentedVehicles: [RentedModel];
 }

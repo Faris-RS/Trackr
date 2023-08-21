@@ -2,29 +2,58 @@
   <img
     class="w-full h-56 object-cover object-center"
     src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-    alt="{{ userData.firstName }}'s profile image"
+    alt="{{ userData.user.firstName }}'s profile image"
   />
   <div class="flex items-center px-6 py-3 bg-indigo-500">
     <fa-icon class="text-white" [icon]="rent"></fa-icon>
-    <h1 class="mx-3 text-white font-semibold text-lg">
-      {{ userData.isRenting ? "Currently Renting" : "Not yet renting" }}
-    </h1>
+    <div class="w-full h-full" *ngIf="userData.user.isRenting; else elseBlock">
+      <h1
+        class="mx-3 text-white font-semibold text-lg hover:underline duration-300 ease-in-out cursor-pointer"
+        (click)="openModal()"
+      >
+        Currently Renting
+      </h1>
+    </div>
+    <ng-template #elseBlock>
+      <div class="w-full h-full">
+        <h1 class="mx-3 text-white font-semibold text-lg">Not yet renting</h1>
+      </div>
+    </ng-template>
+    <!-- <h1 class="mx-3 text-white font-semibold text-lg">
+      {{ userData.user.isRenting ? "Currently Renting" : "Not yet renting" }}
+    </h1> -->
   </div>
   <div class="py-4 px-6">
     <h1 class="text-2xl font-semibold text-gray-800">
-      {{ userData.firstName }} {{ userData.lastName }}
+      {{ userData.user.firstName }} {{ userData.user.lastName }}
     </h1>
     <div class="flex items-center mt-4 text-gray-700">
       <fa-icon [icon]="phone"></fa-icon>
       <h1 class="px-2 text-sm">
         {{
-          userData.phone || "No phone number is assosciated with this account"
+          userData.user.phone ||
+            "No phone number is assosciated with this account"
         }}
       </h1>
     </div>
     <div class="flex items-center mt-4 text-gray-700">
       <fa-icon [icon]="mail"></fa-icon>
-      <h1 class="px-2 text-sm">{{ userData.email }}</h1>
+      <h1 class="px-2 text-sm">{{ userData.user.email }}</h1>
     </div>
+  </div>
+</div>
+
+<div
+  *ngIf="rentModal"
+  class="fixed top-0 left-0 z-40 flex items-center justify-center w-full h-full bg-opacity-80"
+  (click)="closeModal()"
+>
+  <div class="bg-transparent backdrop-blur-sm absolute inset-0"></div>
+  <div (click)="$event.stopPropagation()">
+    <app-user-currently-rented-modal
+      (closeModal)="closeModal()"
+      [userName]="userData.user.firstName + ' ' + userData.user.lastName"
+      [rentedVehicles]="rented"
+    ></app-user-currently-rented-modal>
   </div>
 </div>

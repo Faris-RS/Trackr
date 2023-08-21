@@ -23,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserHeroComponent } from './partials/user-hero/user-hero.component';
 import { UserRentalCardComponent } from './components/user-rental-card/user-rental-card.component';
 import { UserRentModalComponent } from './components/user-rent-modal/user-rent-modal.component';
+import { UserCurrentlyRentedModalComponent } from './components/user-currently-rented-modal/user-currently-rented-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UserRentModalComponent } from './components/user-rent-modal/user-rent-m
     UserHeroComponent,
     UserRentalCardComponent,
     UserRentModalComponent,
+    UserCurrentlyRentedModalComponent,
   ],
   imports: [
     CommonModule,

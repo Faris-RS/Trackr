@@ -7,6 +7,7 @@ import {
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
 import { UserProfileModel } from 'src/app/core/models/user/userModel';
+import { RentedModel } from 'src/app/core/models/user/vehicelModel';
 import { UserProfileService } from 'src/app/core/services/user-profile/user-profile.service';
 
 @Component({
@@ -20,10 +21,14 @@ export class UserProfileComponent {
     private toast: HotToastService
   ) {}
 
-  userData!: UserProfileModel;
   phone = faPhone;
   mail = faEnvelope;
   rent = faReceipt;
+
+  userData!: UserProfileModel;
+  rentModal: boolean = false;
+  rented: RentedModel[] = [];
+  loading: boolean = false;
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -37,13 +42,39 @@ export class UserProfileComponent {
   }
 
   getProfileDetails(): void {
+    this.loading = true;
     this.service
       .getUserDetails()
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
         if (response.status === 200) {
           this.userData = response.user as UserProfileModel;
-        } else this.toast.error(response.message);
+          if (this.userData.rentedVehicles.length > 0) {
+            this.userData.user.isRenting = true;
+            this.rented = this.userData.rentedVehicles.map(
+              (data: RentedModel, index: number) => ({
+                id: index + 1,
+                ...data,
+              })
+            );
+            this.loading = false;
+          } else {
+            this.userData.user.isRenting = false;
+            this.loading = false;
+          }
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
       });
+    this.loading = false;
+  }
+
+  openModal(): void {
+    this.rentModal = true;
+  }
+
+  closeModal(): void {
+    this.rentModal = false;
   }
 }

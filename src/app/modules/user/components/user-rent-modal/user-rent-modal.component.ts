@@ -33,6 +33,13 @@ export class UserRentModalComponent {
   loading: boolean = false;
   total: number = 0;
 
+  ngOnInit() {
+    this.server.test().subscribe((res) => {
+      console.log(res);
+      
+    })
+  }
+
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
