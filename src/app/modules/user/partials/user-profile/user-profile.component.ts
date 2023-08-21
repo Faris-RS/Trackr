@@ -43,7 +43,6 @@ export class UserProfileComponent {
       .subscribe((response) => {
         if (response.status === 200) {
           this.userData = response.user as UserProfileModel;
-          console.log(this.userData);
         } else this.toast.error(response.message);
       });
   }

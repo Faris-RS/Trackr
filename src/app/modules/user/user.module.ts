@@ -22,6 +22,7 @@ import { UserSearchComponent } from './partials/user-search/user-search.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserHeroComponent } from './partials/user-hero/user-hero.component';
 import { UserRentalCardComponent } from './components/user-rental-card/user-rental-card.component';
+import { UserRentModalComponent } from './components/user-rent-modal/user-rent-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserRentalCardComponent } from './components/user-rental-card/user-rent
     UserSearchComponent,
     UserHeroComponent,
     UserRentalCardComponent,
+    UserRentModalComponent,
   ],
   imports: [
     CommonModule,

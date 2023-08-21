@@ -16,7 +16,7 @@ export class UserSignupPageComponent {
     private service: UserAuthenticationService,
     private toast: HotToastService,
     private router: Router,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
   ) {}
 
   private ngUnsubscribe = new Subject<void>();

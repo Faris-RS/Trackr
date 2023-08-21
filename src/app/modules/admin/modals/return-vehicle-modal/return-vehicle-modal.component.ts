@@ -94,7 +94,6 @@ export class ReturnVehicleModalComponent {
       this.toast.error('Please fill all the fields');
       return;
     } else {
-      console.log(returnData);
       this.service
         .returnVehicle(returnData)
         .pipe(takeUntil(this.ngUnsubscribe))

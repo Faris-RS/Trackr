@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject, takeUntil } from 'rxjs';
-import { VehicelModel } from 'src/app/core/models/user/vehicelModel';
+import { VehicleModel } from 'src/app/core/models/user/vehicelModel';
 import { GetAllVehiclesService } from 'src/app/core/services/get-all-vehicles/get-all-vehicles.service';
 
 @Component({
@@ -15,7 +15,13 @@ export class UserHomePageComponent {
     private toast: HotToastService
   ) {}
 
-  vehicles: VehicelModel[] = [];
+  vehicles: VehicleModel[] = [];
+  rentModal: boolean = false;
+  selectedVehicle: VehicleModel = {
+    vehicleName: '',
+    rent: 0,
+    registrationNumber: '',
+  };
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -40,11 +46,23 @@ export class UserHomePageComponent {
                 id: index + 1,
                 vehicleName: data.vehicleName,
                 rent: data.rate,
+                registrationNumber: data.registrationNumber,
               })
             );
-            console.log(this.vehicles);
           }
         } else this.toast.error(response.message);
       });
+  }
+
+  closeModal(): void {
+    this.rentModal = false;
+    this.getAllVehicles();
+  }
+
+  openModal(name: string, rate: number, registrationNumber: string): void {
+    this.rentModal = true;
+    this.selectedVehicle.rent = Number(rate);
+    this.selectedVehicle.vehicleName = name;
+    this.selectedVehicle.registrationNumber = registrationNumber;
   }
 }

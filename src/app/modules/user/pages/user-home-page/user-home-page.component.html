@@ -6,9 +6,26 @@
     <div class="w-full h-full" *ngFor="let vehicle of vehicles">
       <app-user-rental-card
         vehicleName="{{ vehicle.vehicleName }}"
-        rent="{{vehicle.rent}}"
+        rent="{{ vehicle.rent }}"
+        (openModal)="openModal(vehicle.vehicleName, vehicle.rent, vehicle.registrationNumber)"
       ></app-user-rental-card>
     </div>
   </div>
 </div>
 <app-user-footer></app-user-footer>
+
+<div
+  *ngIf="rentModal"
+  class="fixed top-0 left-0 z-40 flex items-center justify-center w-full h-full bg-opacity-80"
+  (click)="closeModal()"
+>
+  <div class="bg-transparent backdrop-blur-sm absolute inset-0"></div>
+  <div (click)="$event.stopPropagation()">
+    <app-user-rent-modal
+      (closeModal)="closeModal()"
+      [vehicleName]="selectedVehicle.vehicleName"
+      rent="{{ selectedVehicle.rent }}"
+      [registration]="selectedVehicle.registrationNumber"
+    ></app-user-rent-modal>
+  </div>
+</div>
