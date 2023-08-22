@@ -9,6 +9,7 @@ export class UserRentalCardComponent {
   @Input() vehicleName: string = '';
   @Input() rent: string = '';
   @Input() rented!: boolean;
+  @Input() image: string = '';
   @Output() openModal = new EventEmitter<void>();
 
   openRentModal(): void {

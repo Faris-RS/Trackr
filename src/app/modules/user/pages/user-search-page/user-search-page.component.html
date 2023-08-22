@@ -1,23 +1,28 @@
 <app-user-header></app-user-header>
 <div style="min-height: 59vh">
-    
   <div class="flex justify-center items-center px-20">
     <app-user-search (search)="doSearch($event)"></app-user-search>
   </div>
 
   <div *ngIf="searchResults.length > 0" class="mt-4">
-    <ul class="grid grid-cols-4 gap-4 m-12">
-      <div *ngFor="let result of searchResults">
-        <li>
-          <app-user-rental-card
-            vehicleName="{{ result.vehicleName }}"
-            rent="{{ result.rate }}"
-            (openModal)="openModal(result.vehicleName, result.rate, result.registrationNumber)"
-            [rented]="result.rented"
-          >
-          </app-user-rental-card>
-        </li>
-      </div>
+    <ul
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-4"
+    >
+      <li *ngFor="let result of searchResults">
+        <app-user-rental-card
+          vehicleName="{{ result.vehicleName }}"
+          rent="{{ result.rate }}"
+          (openModal)="
+            openModal(
+              result.vehicleName,
+              result.rate,
+              result.registrationNumber
+            )
+          "
+          image="{{ result.photo }}"
+          [rented]="result.rented"
+        ></app-user-rental-card>
+      </li>
     </ul>
   </div>
 
@@ -36,6 +41,5 @@
       ></app-user-rent-modal>
     </div>
   </div>
-
 </div>
 <app-user-footer></app-user-footer>

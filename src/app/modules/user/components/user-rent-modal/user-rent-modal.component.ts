@@ -33,12 +33,12 @@ export class UserRentModalComponent {
   loading: boolean = false;
   total: number = 0;
 
-  ngOnInit() {
-    this.server.test().subscribe((res) => {
-      console.log(res);
-      
-    })
-  }
+  // ngOnInit() {
+  //   this.server.test().subscribe((res) => {
+  //     console.log(res);
+
+  //   })
+  // }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -61,7 +61,6 @@ export class UserRentModalComponent {
 
   onSubmit(): void {
     if (this.rentDate && this.returnDate) {
-      console.log(this.rentDate, this.returnDate, this.registration);
       this.server
         .rentVehicle(this.registration, this.rentDate, this.returnDate)
         .pipe(takeUntil(this.ngUnsubscribe))

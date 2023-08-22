@@ -25,6 +25,7 @@ export class UserSearchPageComponent {
     vehicleName: '',
     rent: 0,
     registrationNumber: '',
+    image: '',
   };
 
   private ngUnsubscribe = new Subject<void>();
@@ -45,7 +46,6 @@ export class UserSearchPageComponent {
         .pipe(debounceTime(300))
         .subscribe((result) => {
           if (result.status === 200) {
-            
             if (Array.isArray(result.result)) {
               this.searchResults = result.result;
             } else if (result.result) {
@@ -53,8 +53,6 @@ export class UserSearchPageComponent {
             } else {
               this.searchResults = [];
             }
-            console.log(this.searchResults);
-
           } else {
             this.toast.error(result.message);
           }
@@ -65,8 +63,6 @@ export class UserSearchPageComponent {
   }
 
   openModal(name: string, rate: number, registrationNumber: string): void {
-    console.log(registrationNumber);
-    
     this.rentModal = true;
     this.selectedVehicle.rent = Number(rate);
     this.selectedVehicle.vehicleName = name;

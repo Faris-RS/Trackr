@@ -3,6 +3,7 @@ export interface VehicleModel {
   vehicleName: string;
   rent: number;
   registrationNumber: string;
+  image: string;
 }
 
 export interface RentedModel {

@@ -3,8 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-user-footer',
   templateUrl: './user-footer.component.html',
-  styleUrls: ['./user-footer.component.css']
+  styleUrls: ['./user-footer.component.css'],
 })
 export class UserFooterComponent {
-
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

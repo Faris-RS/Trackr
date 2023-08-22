@@ -2,12 +2,21 @@
 <div style="min-height: 59vh">
   <app-user-hero></app-user-hero>
 
-  <div class="grid grid-cols-4 gap-4 m-12">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-12"
+  >
     <div class="w-full h-full" *ngFor="let vehicle of vehicles">
       <app-user-rental-card
         vehicleName="{{ vehicle.vehicleName }}"
         rent="{{ vehicle.rent }}"
-        (openModal)="openModal(vehicle.vehicleName, vehicle.rent, vehicle.registrationNumber)"
+        (openModal)="
+          openModal(
+            vehicle.vehicleName,
+            vehicle.rent,
+            vehicle.registrationNumber
+          )
+        "
+        image="{{ vehicle.image }}"
       ></app-user-rental-card>
     </div>
   </div>

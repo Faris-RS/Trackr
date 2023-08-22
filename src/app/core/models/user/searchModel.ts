@@ -4,4 +4,5 @@ export interface SearchResultModel {
   rate: number;
   registrationNumber: string;
   rented: boolean;
+  photo: string
 }

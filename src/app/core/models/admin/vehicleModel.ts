@@ -9,10 +9,11 @@ export interface VehicleModel {
   rentedDate?: Date;
   returnDate?: Date;
   rentedBy?: string;
+  photo: string;
 }
 
 export interface ReturnVehicleModel {
-  vehicle: VehicleModel
+  vehicle: VehicleModel;
   returnedDate: Date;
   weeks: number;
   fines: number;

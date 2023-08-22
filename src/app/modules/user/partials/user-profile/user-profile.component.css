@@ -1,0 +1,10 @@
+@media (min-width: 200px) {
+  .test {
+    margin-top: 5rem;
+  }
+}
+@media (max-width: 800px) {
+  .test {
+    margin-top: 0rem;
+  }
+}

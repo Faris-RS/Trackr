@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
+  faCamera,
   faEnvelope,
   faPhone,
   faReceipt,
@@ -16,14 +18,18 @@ import { UserProfileService } from 'src/app/core/services/user-profile/user-prof
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   constructor(
     private service: UserProfileService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private http: HttpClient
   ) {}
 
   phone = faPhone;
   mail = faEnvelope;
   rent = faReceipt;
+  camera = faCamera;
 
   userData!: UserProfileModel;
   rentModal: boolean = false;
@@ -76,5 +82,39 @@ export class UserProfileComponent {
 
   closeModal(): void {
     this.rentModal = false;
+  }
+
+  openFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  handleFileChange(event: any): void {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      this.loading = true;
+      const reader = new FileReader();
+      let imageData;
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () => {
+        imageData = reader.result;
+
+        this.http
+          .post('http://localhost:6335/user/profile/updateProfile', {
+            imageData,
+          })
+          .subscribe(
+            (response) => {
+              this.toast.success('Image updated successfully');
+              this.loading = false;
+            },
+            (error) => {
+              console.error('Error uploading image', error);
+              this.toast.error('Error uploading image');
+              this.loading = false;
+            }
+          );
+      };
+    }
   }
 }

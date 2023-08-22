@@ -21,6 +21,7 @@ export class UserHomePageComponent {
     vehicleName: '',
     rent: 0,
     registrationNumber: '',
+    image: '',
   };
 
   private ngUnsubscribe = new Subject<void>();
@@ -47,6 +48,7 @@ export class UserHomePageComponent {
                 vehicleName: data.vehicleName,
                 rent: data.rate,
                 registrationNumber: data.registrationNumber,
+                image: data.photo,
               })
             );
           }
