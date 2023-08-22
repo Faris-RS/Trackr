@@ -1,0 +1,228 @@
+<div class="p-6">
+  <div class="flex gap-3">
+    <form class="flex gap-3" (ngSubmit)="retrieveOrders()">
+      <select
+        class="border-2 border-indigo-500 px-3 w-40 py-3 placeholder-indigo-300 text-indigo-600 bg-white rounded text-sm focus:outline-none"
+        name="currentYear"
+        id="currentYear"
+        [(ngModel)]="currentYear"
+      >
+        <option *ngFor="let year of yearOptions" [value]="year">
+          {{ year }}
+        </option>
+      </select>
+      <select
+        class="border-2 border-indigo-500 px-3 py-3 placeholder-indigo-300 text-indigo-600 bg-white rounded text-sm"
+        name="currentMonth"
+        id="currentMonth"
+        [(ngModel)]="currentMonth"
+      >
+        <option *ngFor="let month of monthOptions" [value]="month">
+          {{ month }}
+        </option>
+      </select>
+      <button
+        type="submit"
+        class="bg-indigo-500 hover:bg-indigo-600 hover:text-white ease-in-out duration-300 px-4 rounded-md"
+      >
+        <fa-icon [icon]="apply"></fa-icon>
+      </button>
+    </form>
+    <input
+      type="text"
+      class="w-full p-2 border-2 border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      placeholder="Search orders..."
+      [(ngModel)]="searchText"
+      (input)="applyFilter()"
+    />
+    <button
+      class="bg-indigo-500 px-4 hover:bg-indigo-600 hover:text-white ease-in-out duration-300 rounded-md"
+      (click)="downloadExcel()"
+      type="button"
+    >
+      <fa-icon [icon]="excel"></fa-icon>
+    </button>
+    <button
+      class="bg-indigo-500 px-4 hover:bg-indigo-600 hover:text-white ease-in-out duration-300 rounded-md"
+      (click)="downloadPDF()"
+      type="button"
+    >
+      <fa-icon [icon]="pdf"></fa-icon>
+    </button>
+  </div>
+
+  <table
+    class="mt-4 min-w-full divide-y divide-indigo-500"
+    style="width: 100%"
+    id="pdf-content"
+  >
+    <thead>
+      <tr>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('id')">ID</span>
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('vehicleName')"
+            >Vehicle Name</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span
+            class="cursor-pointer"
+            (click)="toggleSort('registrationNumber')"
+            >Registration Number</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('userName')"
+            >Rented To</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('rentedDate')"
+            >Rent started Date</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('returnDate')"
+            >Rent closure Date</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('returnedDate')"
+            >Rent closed date</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('weeks')"
+            >Weeks</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('fines')"
+            >Fines</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('total')"
+            >Total</span
+          >
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left font-medium text-indigo-500 uppercase tracking-wider"
+        >
+          <span class="cursor-pointer" (click)="toggleSort('processedBy')"
+            >Processed By</span
+          >
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr *ngFor="let order of filteredOrders" class="hover:bg-gray-50">
+        <td class="px-6 py-4 whitespace-nowrap">
+          {{ order?.id }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          {{ order.vehicleName }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          {{ order.registrationNumber }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">{{ order.userName }}</td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.rentedDate | date : "dd/MM/yyyy" }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.returnDate | date : "dd/MM/yyyy" }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.returnedDate | date : "dd/MM/yyyy" }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.weeks }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.fines }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.total }}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap uppercase">
+          {{ order?.processedBy }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <table class="pdf-table" #pdfContent>
+    <thead class="pdf-table-header">
+      <tr>
+        <th class="pdf-table-cell">ID</th>
+        <th class="pdf-table-cell">Vehicle Name</th>
+        <th class="pdf-table-cell">Registration Number</th>
+        <th class="pdf-table-cell">Rented To</th>
+        <th class="pdf-table-cell">Rent started Date</th>
+        <th class="pdf-table-cell">Rent closure Date</th>
+        <th class="pdf-table-cell">Rent closed date</th>
+        <th class="pdf-table-cell">Weeks</th>
+        <th class="pdf-table-cell">Fines</th>
+        <th class="pdf-table-cell">Total</th>
+        <th class="pdf-table-cell">Processed By</th>
+      </tr>
+    </thead>
+    <tbody class="pdf-table-body">
+      <tr *ngFor="let order of filteredOrders" class="pdf-table-row">
+        <td class="pdf-table-cell">{{ order?.id }}</td>
+        <td class="pdf-table-cell">{{ order.vehicleName }}</td>
+        <td class="pdf-table-cell">{{ order.registrationNumber }}</td>
+        <td class="pdf-table-cell">{{ order.userName }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.rentedDate | date : "dd/MM/yyyy" }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.returnDate | date : "dd/MM/yyyy" }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.returnedDate | date : "dd/MM/yyyy" }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.weeks }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.fines }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.total }}</td>
+        <td class="pdf-table-cell uppercase">{{ order?.processedBy }}</td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>
+
+<!-- Spinner Modal -->
+<div
+  *ngIf="loading"
+  class="fixed top-0 bg-white left-0 z-50 flex items-center justify-center w-full h-full bg-opacity-40"
+>
+  <app-spinner></app-spinner>
+</div>

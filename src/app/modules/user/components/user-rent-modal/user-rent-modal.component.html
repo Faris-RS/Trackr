@@ -1,0 +1,96 @@
+<section class="py-1">
+  <div class="w-1/2 px-4 mx-auto mt-6 bg-gray-100">
+    <div
+      class="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg border-0"
+    >
+      <div class="rounded-t mb-0 px-6 py-6">
+        <div class="text-center flex justify-between">
+          <h6 class="text-black text-6xl font-bold">
+            Rent Details for {{ vehicleName }}
+          </h6>
+          <fa-icon
+            [icon]="cancel"
+            size="2x"
+            class="text-indigo-500 cursor-pointer"
+            (click)="close()"
+          ></fa-icon>
+        </div>
+        <hr class="mt-10 text-indigo-500" />
+      </div>
+      <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+        <form (ngSubmit)="onSubmit()">
+          <div class="flex flex-wrap">
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block text-xs uppercase text-gray-600 font-bold mb-2"
+                >
+                  When to rent?
+                </label>
+                <input
+                  type="date"
+                  name="rentDate"
+                  id="rentDate"
+                  class="border-0 px-3 py-3 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [(ngModel)]="rentDate"
+                  [min]="todayFormatted"
+                  (change)="onReturnDateChange()"
+                />
+              </div>
+            </div>
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-gray-600 text-xs font-bold mb-2"
+                >
+                  When will you return?
+                </label>
+                <input
+                  type="date"
+                  class="border-0 px-3 py-3 placeholder-indigo-300 text-indigo-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  name="returnDate"
+                  id="returnDate"
+                  [(ngModel)]="returnDate"
+                  [min]="returnFormatted"
+                />
+              </div>
+            </div>
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-gray-600 text-xs font-bold mb-2"
+                >
+                  Rate per week: {{ rent }}
+                </label>
+              </div>
+            </div>
+            <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block capitalize text-gray-600 text-xs font-bold mb-2"
+                >
+                  If no date is selected, both are assumed to be today. If
+                  accepted, you will recieve a mail within a week where you can
+                  proceed to visit our warehouse to pick the vehicle up. Do note
+                  that the vehicle number can vary, but the model will be as is.
+                  There are fines if you fail to return the vehicle within given
+                  timeframe, which Trackr decides, and which you will be
+                  oblidged to comply with.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="px-4">
+            <button
+              [disabled]="!rentDate || !returnDate"
+              class="bg-indigo-500 w-full mt-10 text-white active:bg-indigo-600 font-bold uppercase text-xs px-4 py-3 rounded outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="submit"
+            >
+              Rent
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

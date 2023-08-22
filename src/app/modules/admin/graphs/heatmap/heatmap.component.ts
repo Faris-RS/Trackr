@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
+import { HeatmapModel } from 'src/app/core/models/admin/graphModel';
+import { HeatmapDataService } from 'src/app/core/services/data-for-graph/heatmap-data/heatmap-data.service';
 
 @Component({
   selector: 'app-heatmap',
@@ -8,7 +11,10 @@ import { Component } from '@angular/core';
 export class HeatmapComponent {
   public chartOptions: any;
 
-  constructor() {
+  constructor(
+    private service: HeatmapDataService,
+    private toast: HotToastService
+  ) {
     this.chartOptions = {
       series: [
         {
@@ -105,4 +111,42 @@ export class HeatmapComponent {
     }
     return series;
   }
+
+  // ngOnInit(): void {
+  //   this.service.getAllVehicles().subscribe(
+  //     (response) => {
+  //       this.toast.info(response.message);
+  //       console.log(response.data);
+  //       let heatmapDataFromAPI: HeatmapModel[] = [];
+  //       this.chartOptions = {
+  //         series: heatmapDataFromAPI.map((data) => {
+  //           return {
+  //             name: `${data.vehicleName} (${data.vehicleNo})`,
+  //             data: [
+  //               {
+  //                 x: data.week,
+  //                 y: data.activity,
+  //               },
+  //             ],
+  //           };
+  //         }),
+  //         chart: {
+  //           height: 350,
+  //           type: 'heatmap',
+  //         },
+  //         dataLabels: {
+  //           enabled: false,
+  //         },
+  //         colors: ['#008FFB'],
+  //         title: {
+  //           text: 'HeatMap Chart (Single color)',
+  //         },
+  //       };
+  //     },
+  //     (error) => {
+  //       this.toast.error('Error fetching heatmap data');
+  //       console.error(error);
+  //     }
+  //   );
+  // }
 }
