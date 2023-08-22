@@ -19,6 +19,7 @@ export class UserSignupComponent {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
+  phone!: number;
   password: string = '';
   confirmPassword: string = '';
 
@@ -28,6 +29,7 @@ export class UserSignupComponent {
         !this.firstName.trim() ||
         !this.lastName.trim() ||
         !this.email.trim() ||
+        !this.phone ||
         !this.password.trim()
       ) {
         this.toast.error('Please fill every field');
@@ -42,6 +44,7 @@ export class UserSignupComponent {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
+            phone: this.phone,
             password: this.password,
           });
 

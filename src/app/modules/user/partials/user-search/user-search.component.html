@@ -1,12 +1,11 @@
-<form (ngSubmit)="doSearch()">
+<form (ngSubmit)="doSearch()" class="w-full md:w-auto">
   <div
-    class="flex items-center mt-10 p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-500"
+    class="test md:flex md:items-center mt-10 p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-500"
   >
-    <form action=""></form>
-    <div class="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+    <div class="not flex bg-gray-100 p-4 md:w-72 space-x-4 rounded-lg">
       <fa-icon [icon]="searchIcon"></fa-icon>
       <input
-        class="bg-gray-100 outline-none text-indigo-500"
+        class="bg-gray-100 outline-none text-indigo-500 w-full"
         type="text"
         name="search"
         placeholder="Search for what you need..."
@@ -15,14 +14,13 @@
       />
     </div>
     <div class="text-indigo-500 font-semibold py-4 px-4">
-      <label class="text-black"> Rent Per Week </label>
+      <label class="text-black">Rent Per Week</label>
       <select
         name="price"
         [(ngModel)]="priceRange"
         class="h-full bg-gray-100 w-full rounded-lg cursor-pointer"
         (ngModelChange)="doSearch()"
       >
-        Price
         <option value="0">All price range</option>
         <option value="1">Less than &#8377;500</option>
         <option value="2">&#8377;500 to &#8377;600</option>
@@ -31,20 +29,13 @@
         <option value="5">More than &#8377;800</option>
       </select>
     </div>
-    <button
-      type="submit"
-      class="bg-indigo-500 py-3 px-5 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-3000 cursor-pointer"
-    >
-      Search
-    </button>
+    <div>
+      <button
+        type="submit"
+        class="bg-indigo-500 py-3 px-5 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-300 cursor-pointer w-full mt-4 md:mt-0"
+      >
+        Search
+      </button>
+    </div>
   </div>
 </form>
-
-<div *ngIf="searchResults.length > 0" class="mt-4">
-  <h2>Search Results:</h2>
-  <ul>
-    <li *ngFor="let result of searchResults">{{ result.vehicleName }}</li>
-  </ul>
-
-
-</div>

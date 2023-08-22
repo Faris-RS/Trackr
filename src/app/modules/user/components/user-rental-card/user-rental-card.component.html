@@ -1,0 +1,44 @@
+<article class="flex bg-white transition hover:shadow-xl">
+  <div class="hidden sm:block sm:basis-56">
+    <img
+      alt="{{ vehicleName }}'s image"
+      src="{{
+        image ||
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeJPwIba3Un9Vvkf1LgBUmRcN4PWHzQdzTH-Ab5fnF&s'
+      }}"
+      class="aspect-square h-full w-full object-cover"
+    />
+  </div>
+
+  <div class="flex flex-1 flex-col justify-between">
+    <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+      <a>
+        <h3 class="font-bold uppercase text-gray-900">
+          {{ vehicleName }}
+        </h3>
+      </a>
+
+      <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
+        Rent: {{ rent }}
+      </p>
+    </div>
+
+    <div *ngIf="rented; else elseBlock">
+      <a
+        class="block bg-yellow-300 px-5 py-3 cursor-not-allowed text-center text-xs font-bold uppercase text-gray-900 transition"
+      >
+        Unavailable
+      </a>
+    </div>
+    <ng-template #elseBlock>
+      <div>
+        <a
+          class="block bg-yellow-300 px-5 py-3 cursor-pointer text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
+          (click)="openRentModal()"
+        >
+          Rent
+        </a>
+      </div>
+    </ng-template>
+  </div>
+</article>

@@ -105,6 +105,27 @@ export class EditVehicleDetailsComponent {
     );
   }
 
+  handleFileChange(event: any): void {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      this.loading = true;
+      const reader = new FileReader();
+      let imageData;
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () => {
+        imageData = reader.result;
+        if (typeof imageData === 'string') {
+          this.vehicleData.photo = imageData
+          this.loading = false;
+        } else {
+          this.toast.error('Error reading image data');
+          this.loading = false;
+        }
+      };
+    }
+  }
+
   onSubmit() {
     if (
       !this.vehicleData.vehicleName.trim() ||

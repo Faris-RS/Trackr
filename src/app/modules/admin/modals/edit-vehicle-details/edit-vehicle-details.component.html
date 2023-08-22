@@ -106,6 +106,21 @@
                 />
               </div>
             </div>
+            <!-- <div class="w-full px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-gray-600 text-xs font-bold mb-2"
+                >
+                  Vehicle Image
+                </label>
+                <input
+                  type="file"
+                  (change)="handleFileChange($event)"
+                  accept="image/*"
+                  id="fileInput"
+                />
+              </div>
+            </div> -->
             <div
               *ngIf="vehicleData.rented; else elseBlock"
               class="lg:flex w-full p-0"

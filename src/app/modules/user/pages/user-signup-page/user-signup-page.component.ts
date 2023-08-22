@@ -100,6 +100,7 @@ export class UserSignupPageComponent {
         const user: UserRegister = {
           firstName: userData.firstName,
           lastName: userData.lastName,
+          phone: userData.phone,
           email: userData.email,
           password: userData.password,
         };

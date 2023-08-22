@@ -19,6 +19,8 @@ export class AddVehicleComponent {
   insuranceExpiry!: Date;
   registrationNumber: string = '';
   rate: number = 0;
+  loading: boolean = false;
+  photo: string = '';
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -44,6 +46,7 @@ export class AddVehicleComponent {
       !this.registrationNumber.trim() ||
       !this.vehicleYear ||
       !this.insuranceExpiry ||
+      !this.photo.trim() ||
       !this.rate
     ) {
       this.toast.error('Please fill all the fields');
@@ -55,6 +58,7 @@ export class AddVehicleComponent {
         insuranceExpiry: this.insuranceExpiry,
         registrationNumber: this.registrationNumber,
         rate: this.rate,
+        photo: this.photo,
       };
       this.service
         .addVehicle(data)
@@ -64,6 +68,27 @@ export class AddVehicleComponent {
             this.toast.success(response.message);
           } else this.toast.error(response.message);
         });
+    }
+  }
+
+  handleFileChange(event: any): void {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      this.loading = true;
+      const reader = new FileReader();
+      let imageData;
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () => {
+        imageData = reader.result;
+        if (typeof imageData === 'string') {
+          this.photo = imageData;
+          this.loading = false;
+        } else {
+          this.toast.error('Error reading image data');
+          this.loading = false;
+        }
+      };
     }
   }
 }
