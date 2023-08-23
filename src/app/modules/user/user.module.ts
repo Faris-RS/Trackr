@@ -24,6 +24,8 @@ import { UserHeroComponent } from './partials/user-hero/user-hero.component';
 import { UserRentalCardComponent } from './components/user-rental-card/user-rental-card.component';
 import { UserRentModalComponent } from './components/user-rent-modal/user-rent-modal.component';
 import { UserCurrentlyRentedModalComponent } from './components/user-currently-rented-modal/user-currently-rented-modal.component';
+import { UserInjectJwtService } from 'src/app/core/interceptors/inject-jwt/user/user-inject-jwt.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,13 @@ import { UserCurrentlyRentedModalComponent } from './components/user-currently-r
     UserRoutingModule,
     SharedModule,
     FontAwesomeModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserInjectJwtService,
+      multi: true,
+    },
   ],
 })
 export class UserModule {}

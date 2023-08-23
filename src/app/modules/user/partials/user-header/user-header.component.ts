@@ -13,6 +13,4 @@ export class UserHeaderComponent {
     localStorage.removeItem('userToken');
     this.router.navigate(['/user/login']);
   }
-
-  
 }
