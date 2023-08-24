@@ -50,10 +50,12 @@ export class VehicleListComponent {
       .getAllVehicles()
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((result) => {
-        this.vehicles = result.vehicles.map((user: any, index: number) => ({
-          id: index + 1,
-          ...user,
-        }));
+        this.vehicles = result.vehicles.map(
+          (vehicle: VehicleModel, index: number) => ({
+            id: index + 1,
+            ...vehicle,
+          })
+        );
         this.applySortAndFilter();
       });
   }

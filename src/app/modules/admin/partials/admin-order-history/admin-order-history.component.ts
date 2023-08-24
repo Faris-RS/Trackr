@@ -102,20 +102,22 @@ export class AdminOrderHistoryComponent {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((result) => {
         this.toast.success(result.message);
-        this.orders = result.orders.map((order: any, index: number) => ({
-          id: index + 1,
-          vehicleName: order.vehicle.vehicleName,
-          registrationNumber: order.vehicle.registrationNumber,
-          userName: order.user.firstName + ' ' + order.user.lastName,
-          rentedDate: order.rentedDate,
-          returnDate: order.returnDate,
-          returnedDate: order.returnedDate,
-          weeks: order.weeks,
-          fines: order.fines,
-          total: order.total,
-          processedBy:
-            order.processedBy.firstName + ' ' + order.processedBy.lastName,
-        }));
+        if (result.orders) {
+          this.orders = result.orders.map((order: any, index: number) => ({
+            id: index + 1,
+            vehicleName: order.vehicle.vehicleName,
+            registrationNumber: order.vehicle.registrationNumber,
+            userName: order.user.firstName + ' ' + order.user.lastName,
+            rentedDate: order.rentedDate,
+            returnDate: order.returnDate,
+            returnedDate: order.returnedDate,
+            weeks: order.weeks,
+            fines: order.fines,
+            total: order.total,
+            processedBy:
+              order.processedBy.firstName + ' ' + order.processedBy.lastName,
+          }));
+        }
         this.filteredOrders = this.orders;
         this.applySortAndFilter();
         this.cdRef.detectChanges();

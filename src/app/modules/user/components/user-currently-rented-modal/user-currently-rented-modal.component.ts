@@ -16,7 +16,7 @@ export class UserCurrentlyRentedModalComponent {
   cancel = faXmark;
 
   constructor(private datePipe: DatePipe) {}
-  getFormattedDate(date: any): string {
+  getFormattedDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 

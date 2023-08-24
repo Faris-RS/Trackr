@@ -24,10 +24,10 @@ interface ApiResponse<T> {
 export class ErrorHandlingService implements HttpInterceptor {
   constructor(private router: Router, private toast: HotToastService) {}
 
-  intercept(
-    req: HttpRequest<any>,
+  intercept<T>(
+    req: HttpRequest<T>,
     next: HttpHandler
-  ): Observable<HttpEvent<ApiResponse<any>>> {
+  ): Observable<HttpEvent<ApiResponse<T>>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status >= 400 && error.status < 600) {
