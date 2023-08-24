@@ -15,6 +15,11 @@ import { UserModule } from './modules/user/user.module';
 import { ErrorHandlingService } from './core/interceptors/error-handling/error-handling.service';
 import { SharedModule } from './shared/shared.module';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { authReducer } from './modules/user/store/auth.reducer';
+import { AuthEffects } from './modules/user/store/auth.effects';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -26,6 +31,8 @@ import { SharedModule } from './shared/shared.module';
     AdminModule,
     UserModule,
     SharedModule,
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     {

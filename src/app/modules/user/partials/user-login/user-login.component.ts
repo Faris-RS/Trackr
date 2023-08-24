@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UserLogin } from 'src/app/core/models/user/userModel';
 import { UserAuthenticationService } from 'src/app/core/services/authentication/user-authentication/user-authentication.service';
+import { Store } from '@ngrx/store';
+import { login } from '../../store/auth.actions';
 
 @Component({
   selector: 'app-user-login',
@@ -13,7 +15,8 @@ export class UserLoginComponent {
   constructor(
     private service: UserAuthenticationService,
     private toast: HotToastService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
   email: string = '';
   password: string = '';
@@ -50,6 +53,7 @@ export class UserLoginComponent {
         (response) => {
           if (response.token) {
             localStorage.setItem('userToken', response.token);
+            this.store.dispatch(login());
             this.router.navigate(['/user/home']);
           } else {
             this.loading = false;
