@@ -26,6 +26,10 @@ import { UserRentModalComponent } from './components/user-rent-modal/user-rent-m
 import { UserCurrentlyRentedModalComponent } from './components/user-currently-rented-modal/user-currently-rented-modal.component';
 import { UserInjectJwtService } from 'src/app/core/interceptors/inject-jwt/user/user-inject-jwt.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth.effects';
+import { authReducer } from './store/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     UserRoutingModule,
     SharedModule,
     FontAwesomeModule,
+    // StoreModule.forRoot({ auth: authReducer }),
+    // EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     {

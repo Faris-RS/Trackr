@@ -107,6 +107,7 @@ export class UserProfileComponent {
             (response) => {
               this.toast.success('Image updated successfully');
               this.loading = false;
+              this.getProfileDetails();
             },
             (error) => {
               console.error('Error uploading image', error);
