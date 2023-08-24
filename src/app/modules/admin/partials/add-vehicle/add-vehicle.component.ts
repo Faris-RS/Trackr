@@ -1,33 +1,27 @@
-import { Component } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { HotToastService } from '@ngneat/hot-toast';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AddVehicleService } from '../../services/vehicle-managment/add-vehicle/add-vehicle.service';
 import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
-import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
   styleUrls: ['./add-vehicle.component.css'],
 })
-export class AddVehicleComponent {
+export class AddVehicleComponent implements OnInit, OnDestroy {
   add = faPlus;
-  vehicleName: string = '';
-  vehicleYear: number = 0;
+  vehicleForm!: FormGroup;
   yearOptions: number[] = [];
-  insuranceExpiry!: Date;
-  registrationNumber: string = '';
-  rate: number = 0;
   loading: boolean = false;
-  photo: string = '';
-
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
+    private fb: FormBuilder,
     private toast: HotToastService,
-    private service: AddVehicleService,
-    private router: Router
+    private service: AddVehicleService
   ) {
     const currentYear = new Date().getFullYear();
     for (let i = currentYear - 20; i <= currentYear; i++) {
@@ -35,40 +29,48 @@ export class AddVehicleComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.initForm();
+  }
+
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
+  initForm(): void {
+    this.vehicleForm = this.fb.group({
+      vehicleName: ['', Validators.required],
+      registrationNumber: ['', Validators.required],
+      insuranceExpiry: [''],
+      vehicleYear: [null],
+      rate: [0],
+      photo: [''],
+    });
+  }
+
   onSubmit(): void {
-    if (
-      !this.vehicleName.trim() ||
-      !this.registrationNumber.trim() ||
-      !this.vehicleYear ||
-      !this.insuranceExpiry ||
-      !this.photo.trim() ||
-      !this.rate
-    ) {
-      this.toast.error('Please fill all the fields');
+    if (this.vehicleForm.invalid) {
+      this.toast.error('Please fill all the required fields');
       return;
-    } else {
-      const data: VehicleModel = {
-        vehicleName: this.vehicleName,
-        vehicleYear: this.vehicleYear,
-        insuranceExpiry: this.insuranceExpiry,
-        registrationNumber: this.registrationNumber,
-        rate: this.rate,
-        photo: this.photo,
-      };
-      this.service
-        .addVehicle(data)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((response) => {
-          if (response.status === 200) {
-            this.toast.success(response.message);
-          } else this.toast.error(response.message);
-        });
     }
+
+    const data: VehicleModel = {
+      ...this.vehicleForm.value,
+    };
+    this.loading = true;
+    this.service
+      .addVehicle(data)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.toast.success(response.message);
+          this.loading = false;
+        } else {
+          this.toast.error(response.message);
+          this.loading = false;
+        }
+      });
   }
 
   handleFileChange(event: any): void {
@@ -77,12 +79,13 @@ export class AddVehicleComponent {
     if (selectedFile) {
       this.loading = true;
       const reader = new FileReader();
-      let imageData;
       reader.readAsDataURL(selectedFile);
       reader.onloadend = () => {
-        imageData = reader.result;
+        const imageData = reader.result;
         if (typeof imageData === 'string') {
-          this.photo = imageData;
+          this.vehicleForm.patchValue({
+            photo: imageData,
+          });
           this.loading = false;
         } else {
           this.toast.error('Error reading image data');

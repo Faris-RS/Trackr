@@ -31,8 +31,12 @@ export class ErrorHandlingService implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status >= 400 && error.status < 600) {
-          this.router.navigate(['/error']);
-          this.toast.error('An error occurred. Please try again later.');
+          if (error.status === 401) {
+            this.toast.error('Please login to perform this action');
+          } else {
+            this.router.navigate(['/error']);
+            this.toast.error('An error occurred. Please try again later.');
+          }
         }
         return throwError('An error occurred. Please try again later.');
       })

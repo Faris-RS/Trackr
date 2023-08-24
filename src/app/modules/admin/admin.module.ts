@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 
 import { AdminComponent } from './admin.component';
@@ -55,6 +55,7 @@ import { AdminInjectJwtService } from 'src/app/core/interceptors/inject-jwt/admi
     SharedModule,
     FontAwesomeModule,
     NgApexchartsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
