@@ -60,7 +60,7 @@ export class AddRentDetailsComponent {
     }
   }
 
-  getFormattedDate(date: any): string {
+  getFormattedDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 
