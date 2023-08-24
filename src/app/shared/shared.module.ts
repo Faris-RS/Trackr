@@ -6,6 +6,7 @@ import { BackgroundComponent } from './components/background/background.componen
 import { HotToastModule } from '@ngneat/hot-toast';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ErrorComponent } from './components/error/error.component';
+import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,14 @@ import { ErrorComponent } from './components/error/error.component';
     BackgroundComponent,
     SpinnerComponent,
     ErrorComponent,
+    CurrencyFormatPipe,
   ],
   imports: [CommonModule, FormsModule, HotToastModule.forRoot()],
-  exports: [InputComponent, BackgroundComponent, SpinnerComponent],
+  exports: [
+    InputComponent,
+    BackgroundComponent,
+    SpinnerComponent,
+    CurrencyFormatPipe,
+  ],
 })
 export class SharedModule {}
