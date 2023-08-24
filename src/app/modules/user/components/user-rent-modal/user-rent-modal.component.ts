@@ -45,7 +45,7 @@ export class UserRentModalComponent {
     this.ngUnsubscribe.complete();
   }
 
-  getFormattedDate(date: any): string {
+  getFormattedDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
   }
 

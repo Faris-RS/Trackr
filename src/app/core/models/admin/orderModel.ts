@@ -1,6 +1,6 @@
 export interface OrderModel {
   id?: number;
-  vehicleName: string
+  vehicleName: string;
   registrationNumber: string;
   userName: string;
   rentedDate: Date;
