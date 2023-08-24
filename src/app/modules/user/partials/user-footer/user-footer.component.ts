@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 })
 export class UserFooterComponent {
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollTo(0, 0);
+  }
+
+  smoothScrollTo(x: number, y: number): void {
+    window.scrollTo({ top: y, left: x, behavior: 'smooth' });
   }
 }

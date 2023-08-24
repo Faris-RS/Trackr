@@ -7,6 +7,7 @@ import { UserHomePageComponent } from './pages/user-home-page/user-home-page.com
 import { userAuthGuard } from 'src/app/core/guards/user-auth-guard/user-auth.guard';
 import { UserSearchPageComponent } from './pages/user-search-page/user-search-page.component';
 import { UserProfilePageComponent } from './pages/user-profile-page/user-profile-page.component';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,15 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfilePageComponent,
-        canActivate: [userAuthGuard]
+        canActivate: [userAuthGuard],
+      },
+      {
+        path: '**',
+        component: ErrorComponent,
+      },
+      {
+        path: 'error',
+        component: ErrorComponent,
       },
     ],
   },

@@ -11,7 +11,7 @@ export class UserRentalCardComponent {
   @Input() rented!: boolean;
   @Input() image: string = '';
   @Output() openModal = new EventEmitter<void>();
-
+  
   openRentModal(): void {
     this.openModal.emit();
   }

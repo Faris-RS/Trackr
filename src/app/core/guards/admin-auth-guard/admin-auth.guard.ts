@@ -1,22 +1,28 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 
-export const adminAuthGuard: CanActivateFn = (route, state) => {
-  const router: Router = inject(Router);
-  const toast: HotToastService = inject(HotToastService);
+@Injectable({
+  providedIn: 'root',
+})
+export class adminAuthGuard implements CanActivate {
+  constructor(private router: Router, private toastService: HotToastService) {}
 
-  let tokenCheck: boolean = false;
-  function checkToken(): void {
-    if (localStorage.getItem('adminToken')) tokenCheck = true;
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    if (localStorage.getItem('adminToken')) {
+      return true;
+    } else {
+      this.router.navigate(['/admin/login']);
+      this.toastService.error('Please login');
+      return false;
+    }
   }
-  checkToken();
-
-  if (tokenCheck) {
-    return true;
-  } else {
-    router.navigate(['/admin/login']);
-    toast.error('Please login');
-    return false;
-  }
-};
+}

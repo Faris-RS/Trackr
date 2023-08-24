@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
-import { AdminSignupPageComponent } from './pages/admin-signup-page/admin-signup-page.component';
 import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.component';
 import { adminAuthGuard } from 'src/app/core/guards/admin-auth-guard/admin-auth.guard';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 const routes: Routes = [
   {
@@ -44,6 +44,14 @@ const routes: Routes = [
         path: 'order-history',
         component: AdminHomePageComponent,
         canActivate: [adminAuthGuard],
+      },
+      {
+        path: '**',
+        component: ErrorComponent,
+      },
+      {
+        path: 'error',
+        component: ErrorComponent,
       },
     ],
   },
