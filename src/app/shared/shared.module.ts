@@ -7,6 +7,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ErrorComponent } from './components/error/error.component';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
+import { TruncateTextDirective } from './directives/truncate-text.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
     SpinnerComponent,
     ErrorComponent,
     CurrencyFormatPipe,
+    TruncateTextDirective,
   ],
   imports: [CommonModule, FormsModule, HotToastModule.forRoot()],
   exports: [
