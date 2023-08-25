@@ -25,12 +25,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: UserHomePageComponent,
-        canActivate: [userAuthGuard]
       },
       {
         path: 'search',
         component: UserSearchPageComponent,
-        canActivate: [userAuthGuard]
       },
       {
         path: 'profile',

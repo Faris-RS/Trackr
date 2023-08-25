@@ -1,6 +1,12 @@
 <app-user-header></app-user-header>
-<div style="min-height: 59vh;">
-
-  
+<div style="min-height: 59vh">
+  <div class="flex justify-evenly h-full w-full mt-20 mb-20">
+    <div class="overflow-y-auto" style="height: 55vh;">
+        <app-user-timeline></app-user-timeline>
+    </div>
+    <div class="items-center flex">
+        <app-user-profile></app-user-profile>
+    </div>
+  </div>
 </div>
 <app-user-footer></app-user-footer>
