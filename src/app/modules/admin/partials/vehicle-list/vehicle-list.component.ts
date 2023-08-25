@@ -10,10 +10,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { HotToastService } from '@ngneat/hot-toast';
 import { DeleteVehicleService } from '../../services/vehicle-managment/delete-vehicle/delete-vehicle.service';
+import { TruncateTextDirective } from 'src/app/shared/directives/truncate-text.directive';
 
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
+  providers:[TruncateTextDirective],
   styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent {

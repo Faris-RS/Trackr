@@ -180,6 +180,7 @@
         <td
           class="px-6 py-4 whitespace-nowrap uppercase"
           *ngIf="vehicle?.rented"
+          appTruncateText
         >
           {{ vehicle?.rentedBy }}
         </td>
@@ -245,10 +246,7 @@
   (click)="closeReturnModal()"
 >
   <div class="bg-transparent backdrop-blur-sm absolute inset-0"></div>
-  <div
-    class="bg-gray-100 w-full"
-    (click)="$event.stopPropagation()"
-  >
+  <div class="bg-gray-100 w-full" (click)="$event.stopPropagation()">
     <app-return-vehicle-modal
       [selectedVehicle]="selectedVehicle"
       (closeModal)="closeReturnModal()"
