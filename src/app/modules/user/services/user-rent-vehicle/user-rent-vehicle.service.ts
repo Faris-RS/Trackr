@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserRentVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/user/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/vehicle/';
 
   rentVehicle(
     reg: string,

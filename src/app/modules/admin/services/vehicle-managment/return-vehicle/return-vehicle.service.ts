@@ -8,7 +8,7 @@ import { ReturnVehicleModel } from 'src/app/core/models/admin/vehicleModel';
 })
 export class ReturnVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   returnVehicle(
     data: ReturnVehicleModel

@@ -8,7 +8,7 @@ import { HeatmapModel } from 'src/app/core/models/admin/graphModel';
 })
 export class HeatmapDataService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/graph/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/graph/';
 
   getAllVehicles(): Observable<{
     data?: HeatmapModel;

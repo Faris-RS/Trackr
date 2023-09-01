@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class BlockUnblockUserService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/user/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/user/';
 
   blockUser(mail: string): Observable<{ status: number; message: string }> {
     return this.http.patch<{ status: number; message: string }>(

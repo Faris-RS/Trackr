@@ -8,7 +8,7 @@ import { UserProfileModel } from '../../models/user/userModel';
 })
 export class UserProfileService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/user/profile/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/profile/';
 
   getUserDetails(): Observable<{
     user?: UserProfileModel;

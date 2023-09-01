@@ -9,7 +9,7 @@ import { UserRegister, UserLogin } from 'src/app/core/models/user/userModel';
 export class UserAuthenticationService {
   constructor(private http: HttpClient) {}
 
-  private server: string = 'http://localhost:6335/user/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/';
   // private server: string = 'https://libestorary.onrender.com/user/';
 
   doLogin(user: UserLogin): Observable<{ token?: string; message: string }> {

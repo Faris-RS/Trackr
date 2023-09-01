@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GetVehiclesService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   getAllVehicles(): Observable<{
     vehicles?: any;

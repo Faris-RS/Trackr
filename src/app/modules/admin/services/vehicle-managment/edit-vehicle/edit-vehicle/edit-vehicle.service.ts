@@ -8,7 +8,7 @@ import { VehicleModel } from 'src/app/core/models/admin/vehicleModel';
 })
 export class EditVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   editVehicle(
     data: VehicleModel

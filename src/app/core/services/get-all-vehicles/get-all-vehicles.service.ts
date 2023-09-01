@@ -8,7 +8,7 @@ import { VehicleModel } from '../../models/user/vehicelModel';
 })
 export class GetAllVehiclesService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/user/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/vehicle/';
 
   getAllVehicles(): Observable<{
     vehicle?: VehicleModel;

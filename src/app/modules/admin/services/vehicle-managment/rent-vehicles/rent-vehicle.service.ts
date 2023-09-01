@@ -8,7 +8,7 @@ import { RentData } from 'src/app/core/models/admin/userModel';
 })
 export class RentVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   rentVehicle(data: RentData): Observable<{ status: number; message: string }> {
     return this.http.put<{ status: number; message: string }>(

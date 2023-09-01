@@ -9,7 +9,7 @@ import { AdminLogin } from 'src/app/core/models/admin/adminModel';
 export class AdminAuthenticationService {
   constructor(private http: HttpClient) {}
 
-  private server: string = 'http://localhost:6335/admin/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/';
   // private server: string = 'https://libestorary.onrender.com/user/';
 
   doLogin(

@@ -43,3 +43,5 @@ Thumbs.db
 
 # Ignore testing files
 # *.spec.ts
+
+*.txt

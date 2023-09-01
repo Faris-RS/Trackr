@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GetSelectedVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   // getSelectedVehicle
 }

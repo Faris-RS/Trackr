@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GetUsersService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/user/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/user/';
 
   getAllUsers(): Observable<{
     users?: any;

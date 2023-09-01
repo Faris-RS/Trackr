@@ -8,7 +8,7 @@ import { SearchResultModel } from 'src/app/core/models/user/searchModel';
 })
 export class UserSearchService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/user/search/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/search/';
 
   getSearchResults(
     query: string,

@@ -8,7 +8,7 @@ import { OrderModel } from 'src/app/core/models/user/orderModel';
 })
 export class UserOrderHistoryService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/user/orders/';
+  private server: string = 'https://trackr-bddx.onrender.com/user/orders/';
 
   getAllOrders(): Observable<{
     orders?: OrderModel;

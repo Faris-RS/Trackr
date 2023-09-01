@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminOrderHistoryService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/orders/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/orders/';
 
   retrieveOrders(
     month: string,

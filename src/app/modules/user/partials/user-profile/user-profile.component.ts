@@ -100,7 +100,7 @@ export class UserProfileComponent {
         imageData = reader.result;
 
         this.http
-          .post('http://localhost:6335/user/profile/updateProfile', {
+          .post('https://trackr-bddx.onrender.com/user/profile/updateProfile', {
             imageData,
           })
           .subscribe(

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DeleteVehicleService {
   constructor(private http: HttpClient) {}
-  private server: string = 'http://localhost:6335/admin/vehicle/';
+  private server: string = 'https://trackr-bddx.onrender.com/admin/vehicle/';
 
   deleteVehicle(data: string): Observable<{ message: string; status: number }> {
     return this.http.delete<{ message: string; status: number }>(
