@@ -5,7 +5,7 @@ import { ErrorComponent } from './shared/components/error/error.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'user',
+    redirectTo: 'admin',
     pathMatch: 'full',
   },
   {
